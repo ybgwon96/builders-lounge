@@ -48,25 +48,27 @@ function FloorIndicator({ maxFloor }: { maxFloor: number }) {
           <path d="M4 0L7.5 5.5H0.5L4 0Z" fill="#7C5AC9" />
         </svg>
       </motion.div>
-      <div className="flex items-baseline gap-px overflow-hidden" style={{ height: 28 }}>
-        <AnimatePresence mode="popLayout">
-          <motion.span
-            key={floor}
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 16 }}
-            transition={{ duration: 0.25 }}
-            className="text-[22px] tabular-nums leading-none"
-            style={{
-              fontFamily: "var(--font-serif-en)",
-              color: "#7C5AC9",
-              textShadow: "0 0 12px rgba(124,90,201,0.7)",
-            }}
-          >
-            {floor}
-          </motion.span>
-        </AnimatePresence>
-        <span className="text-[11px]" style={{ fontFamily: "var(--font-serif-en)", color: "rgba(124,90,201,0.35)" }}>
+      <div className="flex items-baseline gap-0">
+        <div className="overflow-hidden text-center" style={{ height: 28, width: 16 }}>
+          <AnimatePresence mode="popLayout">
+            <motion.span
+              key={floor}
+              initial={{ opacity: 0, y: -16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 16 }}
+              transition={{ duration: 0.25 }}
+              className="block text-[22px] tabular-nums leading-none"
+              style={{
+                fontFamily: "var(--font-serif-en)",
+                color: "#7C5AC9",
+                textShadow: "0 0 12px rgba(124,90,201,0.7)",
+              }}
+            >
+              {floor}
+            </motion.span>
+          </AnimatePresence>
+        </div>
+        <span className="text-[13px]" style={{ fontFamily: "var(--font-serif-en)", color: "rgba(124,90,201,0.7)" }}>
           F
         </span>
       </div>
