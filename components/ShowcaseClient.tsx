@@ -181,8 +181,9 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
             <div className="h-px w-10" style={{ backgroundColor: "#E4E4E7" }} />
           </div>
           <h2 className="text-[clamp(2.2rem,5vw,4rem)] leading-[1.08] tracking-[-0.02em] font-bold mb-5">
-            <span style={{ color: "#18181B" }}>우리가 올리고 있는 </span>
-            <span style={{ color: "#7C5AC9" }}>층수</span>
+            <span style={{ color: "#18181B" }}>불 켜진 </span>
+            <span style={{ color: "#7C5AC9" }}>창문</span>
+            <span style={{ color: "#18181B" }}>들</span>
           </h2>
           <p className="text-[14px] leading-[1.85]" style={{ color: "#52525B" }}>
             불 켜진 창문에 마우스를 올려보세요.

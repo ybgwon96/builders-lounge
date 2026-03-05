@@ -240,7 +240,7 @@ export function CTA() {
               />
 
               {/* Inner layout: elevator + call panel */}
-              <div className="flex items-end justify-center gap-4 sm:gap-6">
+              <div className="flex items-end justify-center gap-4 sm:gap-6" style={{ position: "relative", left: "20px" }}>
                 {/* Elevator column */}
                 <div className="flex flex-col items-center" style={{ width: "min(380px, 68vw)" }}>
 
