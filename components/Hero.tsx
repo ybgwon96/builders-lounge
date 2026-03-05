@@ -66,19 +66,6 @@ export function Hero() {
         className="relative z-10 w-full px-6 sm:px-10 lg:px-16 max-w-[1200px] mx-auto"
       >
         <div>
-          {/* Decorative accent line */}
-          <motion.div
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.2, ease }}
-            className="origin-left mb-8"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-px" style={{ backgroundColor: "#7C5AC9" }} />
-              <div className="w-1 h-1 rounded-full" style={{ backgroundColor: "rgba(124,90,201,0.5)" }} />
-            </div>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
