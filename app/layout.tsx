@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
-import { Noto_Serif_KR, Instrument_Serif } from "next/font/google";
+import { Instrument_Serif } from "next/font/google";
 import "./globals.css";
-
-const notoSerifKr = Noto_Serif_KR({
-  subsets: ["latin"],
-  weight: ["400", "700", "900"],
-  variable: "--font-serif-kr",
-  display: "swap",
-});
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -35,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={`${notoSerifKr.variable} ${instrumentSerif.variable}`}>
+    <html lang="ko" className={instrumentSerif.variable}>
       <body className="antialiased">
         {children}
         {/* Hanji grain texture SVG filter */}

@@ -36,7 +36,7 @@ export function FloatingNav() {
             <div className="flex items-baseline gap-1.5">
               <span
                 className="text-[17px] sm:text-[19px] font-bold tracking-tight"
-                style={{ fontFamily: "var(--font-serif-kr)", color: "#18181B" }}
+                style={{ color: "var(--color-text)" }}
               >
                 빌라
               </span>

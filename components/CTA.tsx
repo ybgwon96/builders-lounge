@@ -194,7 +194,6 @@ export function CTA() {
           {/* Heading */}
           <h2
             className="text-[clamp(1.5rem,3.5vw,2.5rem)] leading-[1.35] tracking-[-0.01em] mb-3"
-            style={{ fontFamily: "var(--font-serif-kr)", color: "#18181B" }}
           >
             저희는 <span style={{ color: "#7C5AC9" }}>계속 올라가는 중</span>입니다
           </h2>

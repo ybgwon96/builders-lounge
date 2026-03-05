@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Instrument+Serif:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css");
 @import "tailwindcss";
 
@@ -18,7 +18,6 @@
   --color-accent-hover: #6344A8;
   --color-warm: #9A8B7E;
 
-  --font-serif-kr: "Noto Serif KR", serif;
   --font-serif-en: "Instrument Serif", Georgia, serif;
   --font-sans: "Pretendard Variable", -apple-system, sans-serif;
 }

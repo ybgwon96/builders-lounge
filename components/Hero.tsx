@@ -109,7 +109,6 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 1.5, ease }}
             className="text-[clamp(3rem,8vw,6.5rem)] leading-[1.06] tracking-[-0.03em] font-bold"
-            style={{ fontFamily: "var(--font-serif-kr)", color: "#18181B" }}
           >
             함께 짓는
           </motion.h1>
@@ -120,10 +119,9 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 1.65, ease }}
             className="text-[clamp(3rem,8vw,6.5rem)] leading-[1.06] tracking-[-0.03em] font-bold"
-            style={{ fontFamily: "var(--font-serif-kr)" }}
           >
             <span style={{ color: "#7C5AC9" }}>사람들</span>
-            <span style={{ color: "#18181B" }}>의 공간</span>
+            <span>의 공간</span>
           </motion.h1>
         </div>
 
