@@ -177,7 +177,7 @@ export function CTA() {
   const [doorsOpen, setDoorsOpen] = useState(false);
 
   return (
-    <section id="cta" className="relative" style={{ backgroundColor: "#FAFAFA" }}>
+    <section id="cta" className="relative overflow-hidden" style={{ backgroundColor: "#FAFAFA" }}>
       {/* Top divider */}
       <div className="px-6 sm:px-10 lg:px-16 max-w-[1200px] mx-auto">
         <div className="h-px" style={{ backgroundColor: "rgba(124, 90, 201, 0.15)" }} />
@@ -461,8 +461,8 @@ export function CTA() {
 
                 </div>
 
-                {/* Call button panel — wall-mounted, right side */}
-                <div className="flex items-center pb-[15%]">
+                {/* Call button panel — wall-mounted, right side, vertically centered to elevator frame */}
+                <div className="flex items-center self-stretch">
                   <CallButton
                     active={doorsOpen}
                     onHover={() => setDoorsOpen(true)}
