@@ -38,8 +38,8 @@ function Building({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 1, delay: index * 0.18, ease: [0.16, 1, 0.3, 1] }}
-      className="flex flex-col"
-      style={{ width: "100%", maxWidth: 320 }}
+      className="flex flex-col flex-1 min-w-0"
+      style={{ maxWidth: 320 }}
     >
       {/* Building name — above the roof */}
       <div className="text-center mb-3">
@@ -191,7 +191,7 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
         </motion.div>
 
         {/* 3 Buildings — equal heights */}
-        <div className="flex items-end justify-center gap-4 sm:gap-6 lg:gap-8">
+        <div className="flex items-end justify-center gap-2 sm:gap-6 lg:gap-8">
           {buildings.map((b, i) => (
             <Building
               key={b.name}
