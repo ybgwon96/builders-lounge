@@ -1,5 +1,21 @@
 import type { Metadata } from "next";
+import { Noto_Serif_KR, Instrument_Serif } from "next/font/google";
 import "./globals.css";
+
+const notoSerifKr = Noto_Serif_KR({
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  variable: "--font-serif-kr",
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-serif-en",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "빌라 — Builder's Lounge",
@@ -19,8 +35,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body className="antialiased">{children}</body>
+    <html lang="ko" className={`${notoSerifKr.variable} ${instrumentSerif.variable}`}>
+      <body className="antialiased">
+        {children}
+        {/* Hanji grain texture SVG filter */}
+        <svg aria-hidden="true" className="fixed w-0 h-0">
+          <filter id="grain">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.65"
+              numOctaves="3"
+              stitchTiles="stitch"
+            />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+        </svg>
+        {/* Grain overlay */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-0 z-[200] opacity-[0.03]"
+          style={{ filter: "url(#grain)" }}
+        />
+      </body>
     </html>
   );
 }

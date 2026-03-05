@@ -1,24 +1,42 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Instrument+Serif:ital@0;1&display=swap");
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css");
 @import "tailwindcss";
 
 @theme inline {
-  --color-bg: #f8f7f4;
-  --color-surface: #ffffff;
-  --color-surface-dim: #f2f1ee;
-  --color-border: #e8e6e1;
-  --color-border-strong: #d4d1cb;
-  --color-text: #1a1916;
-  --color-text-mid: #6b675e;
-  --color-text-dim: #a09b91;
-  --color-text-faint: #c8c4bb;
+  --color-bg: #FAF8F4;
+  --color-surface: #F0EDE6;
+  --color-surface-dim: #E8E4DC;
+  --color-border: #DDD8CE;
+  --color-border-strong: #C8C1B4;
+  --color-text: #1C1917;
+  --color-text-mid: #6B6356;
+  --color-text-dim: #9A9286;
+  --color-text-faint: #C8C1B4;
 
-  --color-gold: #b5904d;
-  --color-gold-light: #caa96a;
-  --color-gold-hover: #a07d3d;
+  --color-accent: #7C5AC9;
+  --color-accent-light: #9D7AED;
+  --color-accent-hover: #6344A8;
+  --color-warm: #C4956A;
 
-  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-serif-kr: "Noto Serif KR", serif;
+  --font-serif-en: "Instrument Serif", Georgia, serif;
   --font-sans: "Pretendard Variable", -apple-system, sans-serif;
+}
+
+:root {
+  --color-bg: #FAF8F4;
+  --color-surface: #F0EDE6;
+  --color-surface-dim: #E8E4DC;
+  --color-border: #DDD8CE;
+  --color-border-strong: #C8C1B4;
+  --color-text: #1C1917;
+  --color-text-mid: #6B6356;
+  --color-text-dim: #9A9286;
+  --color-text-faint: #C8C1B4;
+  --color-accent: #7C5AC9;
+  --color-accent-light: #9D7AED;
+  --color-accent-hover: #6344A8;
+  --color-warm: #C4956A;
 }
 
 html {
@@ -35,10 +53,13 @@ body {
 }
 
 ::selection {
-  background: rgba(181, 144, 77, 0.18);
+  background: rgba(124, 90, 201, 0.18);
 }
 
-::-webkit-scrollbar { width: 0; }
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 3px; }
 
 /* Marquee */
 @keyframes marquee {
@@ -46,12 +67,18 @@ body {
   100% { transform: translateX(-50%); }
 }
 
-/* Curtain reveal */
-@keyframes curtain-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
+/* Ink spread clip-path for curtain */
+@keyframes ink-spread {
+  0% { clip-path: circle(0% at 50% 50%); }
+  100% { clip-path: circle(150% at 50% 50%); }
 }
-@keyframes curtain-right {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(100%); }
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
 }
