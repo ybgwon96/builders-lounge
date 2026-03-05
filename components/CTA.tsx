@@ -3,7 +3,7 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
-const KAKAO_OPEN_CHAT_URL = "https://open.kakao.com/o/YOUR_LINK";
+const KAKAO_OPEN_CHAT_URL = "https://www.threads.com/@ee.yxx";
 const EASE_DOOR = [0.4, 0, 0.15, 1] as [number, number, number, number];
 const EASE_OUT = [0.16, 1, 0.3, 1] as [number, number, number, number];
 

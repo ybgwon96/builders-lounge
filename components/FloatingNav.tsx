@@ -4,7 +4,7 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
 import { LogoIcon } from "./LogoIcon";
 
-const KAKAO_OPEN_CHAT_URL = "https://open.kakao.com/o/YOUR_LINK";
+const KAKAO_OPEN_CHAT_URL = "https://www.threads.com/@ee.yxx";
 
 export function FloatingNav() {
   const { scrollY } = useScroll();
