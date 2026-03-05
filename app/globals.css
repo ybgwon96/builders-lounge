@@ -3,20 +3,20 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-bg: #FAF8F4;
-  --color-surface: #F0EDE6;
-  --color-surface-dim: #E8E4DC;
-  --color-border: #DDD8CE;
-  --color-border-strong: #C8C1B4;
-  --color-text: #1C1917;
-  --color-text-mid: #6B6356;
-  --color-text-dim: #9A9286;
-  --color-text-faint: #C8C1B4;
+  --color-bg: #FAFAFA;
+  --color-surface: #F4F4F6;
+  --color-surface-dim: #EBEBEE;
+  --color-border: #E4E4E7;
+  --color-border-strong: #D4D4D8;
+  --color-text: #18181B;
+  --color-text-mid: #52525B;
+  --color-text-dim: #71717A;
+  --color-text-faint: #A1A1AA;
 
   --color-accent: #7C5AC9;
   --color-accent-light: #9D7AED;
   --color-accent-hover: #6344A8;
-  --color-warm: #C4956A;
+  --color-warm: #9A8B7E;
 
   --font-serif-kr: "Noto Serif KR", serif;
   --font-serif-en: "Instrument Serif", Georgia, serif;
@@ -24,19 +24,19 @@
 }
 
 :root {
-  --color-bg: #FAF8F4;
-  --color-surface: #F0EDE6;
-  --color-surface-dim: #E8E4DC;
-  --color-border: #DDD8CE;
-  --color-border-strong: #C8C1B4;
-  --color-text: #1C1917;
-  --color-text-mid: #6B6356;
-  --color-text-dim: #9A9286;
-  --color-text-faint: #C8C1B4;
+  --color-bg: #FAFAFA;
+  --color-surface: #F4F4F6;
+  --color-surface-dim: #EBEBEE;
+  --color-border: #E4E4E7;
+  --color-border-strong: #D4D4D8;
+  --color-text: #18181B;
+  --color-text-mid: #52525B;
+  --color-text-dim: #71717A;
+  --color-text-faint: #A1A1AA;
   --color-accent: #7C5AC9;
   --color-accent-light: #9D7AED;
   --color-accent-hover: #6344A8;
-  --color-warm: #C4956A;
+  --color-warm: #9A8B7E;
 }
 
 html {

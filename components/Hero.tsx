@@ -39,20 +39,26 @@ export function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Gradient overlay — warm cream wash for light theme */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, #FAF8F4, transparent 50%)" }} />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, rgba(250,248,244,0.9), rgba(250,248,244,0.4) 50%, transparent)" }} />
-
-      {/* Purple atmospheric haze — subtle top-right glow */}
+      {/* Overlay system — text readable left, photo vivid right */}
+      {/* Bottom fade to page bg */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, #FAFAFA 0%, rgba(250,250,250,0.6) 20%, transparent 40%)" }} />
+      {/* Left text shield — strong coverage for readability */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, rgba(250,250,250,0.95) 0%, rgba(250,250,250,0.8) 30%, rgba(250,250,250,0.15) 55%, transparent 70%)" }} />
+      {/* Purple atmospheric tint — gives photo a cohesive cool-purple cast */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 3, delay: 1.5 }}
+        transition={{ duration: 2.5, delay: 1.2 }}
         style={{
-          background: "radial-gradient(ellipse 60% 50% at 75% 25%, rgba(124,90,201,0.06), transparent 70%)",
+          background: [
+            "radial-gradient(ellipse 70% 60% at 80% 30%, rgba(124,90,201,0.1), transparent 60%)",
+            "linear-gradient(135deg, transparent 40%, rgba(124,90,201,0.04) 60%, rgba(124,90,201,0.08) 100%)",
+          ].join(", "),
         }}
       />
+      {/* Subtle top vignette */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(24,24,27,0.08) 0%, transparent 25%)" }} />
 
       {/* Content */}
       <motion.div
@@ -81,14 +87,14 @@ export function Hero() {
           >
             <span
               className="block text-[clamp(1rem,1.8vw,1.4rem)] tracking-[0.15em] uppercase mb-3"
-              style={{ fontFamily: "var(--font-serif-en)", fontStyle: "italic", color: "#6B6356" }}
+              style={{ fontFamily: "var(--font-serif-en)", fontStyle: "italic", color: "#52525B" }}
             >
               Where Builders Come Together
             </span>
-            <span className="block text-[clamp(3rem,7vw,6rem)] leading-[1.08] tracking-[-0.02em] font-bold" style={{ color: "#1C1917" }}>
+            <span className="block text-[clamp(3rem,7vw,6rem)] leading-[1.08] tracking-[-0.02em] font-bold" style={{ color: "#18181B" }}>
               함께 짓는
             </span>
-            <span className="block text-[clamp(3rem,7vw,6rem)] leading-[1.08] tracking-[-0.02em] font-bold" style={{ color: "#1C1917" }}>
+            <span className="block text-[clamp(3rem,7vw,6rem)] leading-[1.08] tracking-[-0.02em] font-bold" style={{ color: "#18181B" }}>
               <span style={{ color: "#7C5AC9" }}>사람들</span>의 공간
             </span>
           </motion.h1>
@@ -98,7 +104,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.8, ease }}
             className="mt-10 lg:mt-14 text-[14px] sm:text-[15px] max-w-sm leading-[1.85]"
-            style={{ color: "#6B6356" }}
+            style={{ color: "#52525B" }}
           >
             한국 쓰레더들의 모임.
             <br />
@@ -123,7 +129,7 @@ export function Hero() {
             <a
               href="#cta"
               className="group px-2 py-3.5 text-[13px] tracking-[0.05em] transition-all duration-300"
-              style={{ color: "#6B6356" }}
+              style={{ color: "#52525B" }}
             >
               <span className="relative">
                 입주 신청
@@ -148,7 +154,7 @@ export function Hero() {
           animate={{ scaleY: [0.5, 1, 0.5], opacity: [0.3, 0.6, 0.3] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         />
-        <span className="text-[8px] tracking-[0.3em] uppercase" style={{ color: "#C8C1B4" }}>scroll</span>
+        <span className="text-[8px] tracking-[0.3em] uppercase" style={{ color: "#A1A1AA" }}>scroll</span>
       </motion.div>
     </section>
   );

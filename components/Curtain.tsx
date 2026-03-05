@@ -48,13 +48,13 @@ export function Curtain() {
 
         <span
           className="text-5xl sm:text-7xl font-black tracking-tight"
-          style={{ fontFamily: "var(--font-serif-kr)", color: "#FAF8F4" }}
+          style={{ fontFamily: "var(--font-serif-kr)", color: "#FAFAFA" }}
         >
           빌라
         </span>
         <span
           className="text-sm sm:text-base tracking-[0.3em] italic"
-          style={{ fontFamily: "var(--font-serif-en)", color: "rgba(250,248,244,0.6)" }}
+          style={{ fontFamily: "var(--font-serif-en)", color: "rgba(250,250,250,0.6)" }}
         >
           Builder&apos;s Lounge
         </span>
