@@ -8,23 +8,23 @@ interface ShowcaseClientProps {
   projects: Project[];
 }
 
-const DONG_NAMES = ["AI", "마케팅", "자영업"];
+const DONG_NAMES = ["AI", "Marketing", "Small Biz"];
 
 function Building({
   name,
-  totalFloors,
+  displayFloors,
   projects,
   index,
 }: {
   name: string;
-  totalFloors: number;
+  displayFloors: number;
   projects: Project[];
   index: number;
 }) {
   const sorted = [...projects].sort((a, b) => a.floor - b.floor);
   const floors: { num: number; windows: (Project | null)[] }[] = [];
 
-  for (let f = totalFloors - 1; f >= 0; f--) {
+  for (let f = displayFloors - 1; f >= 0; f--) {
     const floorProjects = sorted.filter((p) => p.floor === f);
     floors.push({
       num: f,
@@ -38,76 +38,64 @@ function Building({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 1, delay: index * 0.18, ease: [0.16, 1, 0.3, 1] }}
-      className="flex flex-col flex-1"
-      style={{ maxWidth: 340 }}
+      className="flex flex-col"
+      style={{ width: "100%", maxWidth: 320 }}
     >
-      {/* Rooftop structures */}
-      <div className="flex items-end justify-center gap-2 px-6 mb-px">
-        {index === 0 && (
-          <div className="flex flex-col items-center">
-            <div className="w-px h-5 sm:h-8" style={{ backgroundColor: "#CCC5B9" }} />
-            <motion.div
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: "#7C5AC9", boxShadow: "0 0 6px rgba(124,90,201,0.35)" }}
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </div>
-        )}
+      {/* Building name — above the roof */}
+      <div className="text-center mb-3">
+        <span
+          className="text-[11px] sm:text-[13px] tracking-[0.2em] uppercase"
+          style={{ fontFamily: "var(--font-serif-en)", color: "#9A9286" }}
+        >
+          {name}
+        </span>
+      </div>
+
+      {/* Rooftop structures — unified, symmetric */}
+      <div className="flex items-end justify-center gap-3 px-8 mb-px">
         <div className="w-4 sm:w-5 h-2 sm:h-3 rounded-t-sm" style={{ backgroundColor: "#C8C1B4", border: "1px solid #B8B0A2", borderBottom: "none" }} />
-        {index !== 0 && (
-          <div className="flex flex-col items-center">
-            <div className="w-px h-3 sm:h-5" style={{ backgroundColor: "#CCC5B9" }} />
-            <motion.div
-              className="w-1 h-1 rounded-full"
-              style={{ backgroundColor: index === 1 ? "#7C5AC9" : "#C8C1B4", boxShadow: index === 1 ? "0 0 5px rgba(124,90,201,0.3)" : "none" }}
-              {...(index === 1 ? { animate: { opacity: [0.5, 1, 0.5] }, transition: { duration: 2.5, repeat: Infinity, ease: "easeInOut" } } : {})}
-            />
-          </div>
-        )}
+        <div className="flex flex-col items-center">
+          <div className="w-px h-4 sm:h-6" style={{ backgroundColor: "#CCC5B9" }} />
+          <motion.div
+            className="w-1.5 h-1.5 rounded-full"
+            style={{ backgroundColor: "#7C5AC9", boxShadow: "0 0 6px rgba(124,90,201,0.3)" }}
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2 + index * 0.3, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
         <div className="w-3 sm:w-4 h-1.5 sm:h-2 rounded-t-sm" style={{ backgroundColor: "#B8B0A2", border: "1px solid #A8A095", borderBottom: "none" }} />
       </div>
 
-      {/* Roof */}
-      <div className="h-1.5 sm:h-2 rounded-t-[3px]" style={{ backgroundColor: "#B8B0A2" }} />
-
-      {/* Building name plate */}
-      <div
-        className="text-center py-2 sm:py-2.5 relative"
-        style={{ backgroundColor: "#E0DAD0", borderLeft: "2px solid #CCC5B9", borderRight: "2px solid #CCC5B9" }}
-      >
-        <div
-          className="inline-block px-3 sm:px-4 py-0.5 sm:py-1 rounded-sm"
-          style={{ backgroundColor: "#FAF8F4", border: "1px solid #7C5AC9", boxShadow: "0 0 10px rgba(124,90,201,0.06)" }}
-        >
-          <span className="text-[9px] sm:text-[11px] tracking-[0.25em] font-bold" style={{ color: "#7C5AC9" }}>
-            {name}동
-          </span>
-        </div>
+      {/* Roof — cornice detail */}
+      <div className="relative">
+        <div className="h-1 rounded-t-[3px] mx-[-1px]" style={{ backgroundColor: "#A8A095" }} />
+        <div className="h-1.5 sm:h-2" style={{ backgroundColor: "#B8B0A2" }} />
       </div>
 
       {/* Floors */}
       <div
-        className="flex-1"
         style={{
           backgroundColor: "#E0DAD0",
-          borderLeft: "2px solid #CCC5B9",
-          borderRight: "2px solid #CCC5B9",
-          backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.015) 2px, rgba(0,0,0,0.015) 3px)",
+          borderLeft: "2.5px solid #CCC5B9",
+          borderRight: "2.5px solid #CCC5B9",
+          boxShadow: "inset 2px 0 0 rgba(255,255,255,0.15), inset -2px 0 0 rgba(255,255,255,0.15)",
         }}
       >
         {floors.map(({ num, windows }, fi) => (
           <div key={num}>
-            {fi > 0 && <div className="h-[3px] mx-[-2px]" style={{ backgroundColor: "#D4CEC3" }} />}
-            <div className="flex">
-              <div className="w-5 sm:w-7 flex items-center justify-center shrink-0" style={{ borderRight: "1px solid #D4CEC3" }}>
+            {fi > 0 && (
+              <div className="mx-1 sm:mx-2" style={{ height: 2, backgroundColor: "#D4CEC3", borderRadius: 1 }} />
+            )}
+            <div className="relative">
+              {/* Floor number — absolute so it doesn't shift the grid */}
+              <div className="absolute left-1 sm:left-1.5 top-1/2 -translate-y-1/2 z-10">
                 <span className="text-[7px] sm:text-[8px]" style={{ color: "#C8C1B4", fontFamily: "var(--font-serif-en)" }}>
                   {num + 1}F
                 </span>
               </div>
-              <div className="flex-1 grid grid-cols-2 gap-1 sm:gap-1.5 p-1.5 sm:p-2">
+              <div className="grid grid-cols-2 gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-2 sm:py-2.5">
                 {windows.map((proj, wi) => (
-                  <BuildingWindow key={proj?.id ?? `e-${index}-${num}-${wi}`} project={proj} />
+                  <BuildingWindow key={proj?.id ?? `e-${index}-${num}-${wi}`} project={proj} floorNum={num} windowIndex={wi} />
                 ))}
               </div>
             </div>
@@ -115,31 +103,40 @@ function Building({
         ))}
       </div>
 
-      {/* Entrance */}
-      <div style={{ backgroundColor: "#D4CEC3", borderLeft: "2px solid #CCC5B9", borderRight: "2px solid #CCC5B9", borderBottom: "3px solid #B8B0A2" }}>
+      {/* Entrance — refined proportions */}
+      <div style={{
+        backgroundColor: "#D8D2C7",
+        borderLeft: "2.5px solid #CCC5B9",
+        borderRight: "2.5px solid #CCC5B9",
+        borderBottom: "3px solid #B8B0A2",
+      }}>
+        {/* Entrance floor line */}
         <div className="h-px" style={{ backgroundColor: "#CCC5B9" }} />
-        <div className="flex items-end h-14 sm:h-18">
-          <div className="flex-1 h-full" style={{ backgroundColor: "#D4CEC3" }} />
-          <div className="w-16 sm:w-20 h-full flex flex-col">
+        <div className="flex items-end h-12 sm:h-16">
+          {/* Left wall */}
+          <div className="flex-1 h-full" style={{ backgroundColor: "#D8D2C7" }} />
+          {/* Door frame */}
+          <div className="w-14 sm:w-18 h-full flex flex-col">
             {/* Canopy */}
-            <div className="h-1.5 mx-[-4px] rounded-t-sm" style={{ backgroundColor: "#B8B0A2" }} />
+            <div className="h-2 mx-[-6px] rounded-t-sm relative" style={{ backgroundColor: "#B8B0A2" }}>
+              <div className="absolute inset-x-0 bottom-0 h-px" style={{ backgroundColor: "#A8A095" }} />
+            </div>
             {/* Door panels */}
-            <div className="flex-1 flex gap-px" style={{ backgroundColor: "#CCC5B9" }}>
+            <div className="flex-1 flex gap-[1px]" style={{ backgroundColor: "#A8A095" }}>
               {[0, 1].map((d) => (
                 <div key={d} className="flex-1 relative" style={{
-                  backgroundColor: "rgba(26,22,18,0.9)",
-                  border: "1px solid #B8B0A2",
-                  borderBottom: "none",
-                  backgroundImage: "linear-gradient(180deg, rgba(255,200,120,0.03) 0%, rgba(255,200,120,0.08) 100%)",
+                  backgroundColor: "#1A1612",
+                  backgroundImage: "linear-gradient(180deg, rgba(255,200,120,0.02) 0%, rgba(255,200,120,0.06) 100%)",
                 }}>
                   <div className={`absolute top-1/2 -translate-y-1/2 ${d === 0 ? "right-1" : "left-1"}`}>
-                    <div className="w-[2px] h-3 sm:h-4 rounded-full" style={{ backgroundColor: "#C4956A", boxShadow: "0 0 4px rgba(196,149,106,0.3)" }} />
+                    <div className="w-[2px] h-2.5 sm:h-3.5 rounded-full" style={{ backgroundColor: "#C4956A", boxShadow: "0 0 3px rgba(196,149,106,0.25)" }} />
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="flex-1 h-full" style={{ backgroundColor: "#D4CEC3" }} />
+          {/* Right wall */}
+          <div className="flex-1 h-full" style={{ backgroundColor: "#D8D2C7" }} />
         </div>
       </div>
     </motion.div>
@@ -157,6 +154,8 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
     };
   });
 
+  // All buildings render with the same height
+  const globalMaxFloors = Math.max(...buildings.map((b) => b.totalFloors), 1);
   const totalProjects = projects.length;
   const maxFloor = Math.max(...projects.map((p) => p.floor), 0);
 
@@ -172,15 +171,16 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-14 sm:mb-20"
+          className="text-center mb-16 sm:mb-24"
         >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="h-px w-8" style={{ backgroundColor: "#7C5AC9" }} />
-            <span className="text-[10px] tracking-[0.35em] uppercase" style={{ color: "#9A9286" }}>
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="h-px w-10" style={{ backgroundColor: "#DDD8CE" }} />
+            <span className="text-[10px] tracking-[0.4em] uppercase" style={{ color: "#9A9286" }}>
               Our Complex
             </span>
+            <div className="h-px w-10" style={{ backgroundColor: "#DDD8CE" }} />
           </div>
-          <h2 className="text-[clamp(2.2rem,5vw,4rem)] leading-[1.08] tracking-[-0.02em] font-bold mb-4">
+          <h2 className="text-[clamp(2.2rem,5vw,4rem)] leading-[1.08] tracking-[-0.02em] font-bold mb-5">
             <span style={{ color: "#1C1917" }}>우리가 올리고 있는 </span>
             <span style={{ color: "#7C5AC9" }}>층수</span>
           </h2>
@@ -189,23 +189,33 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
           </p>
         </motion.div>
 
-        {/* 3 Buildings */}
-        <div className="flex items-end justify-center gap-3 sm:gap-5 lg:gap-8">
+        {/* 3 Buildings — equal heights */}
+        <div className="flex items-end justify-center gap-4 sm:gap-6 lg:gap-8">
           {buildings.map((b, i) => (
-            <Building key={b.name} name={b.name} totalFloors={b.totalFloors} projects={b.projects} index={i} />
+            <Building
+              key={b.name}
+              name={b.name}
+              displayFloors={globalMaxFloors}
+              projects={b.projects}
+              index={i}
+            />
           ))}
         </div>
 
-        {/* Ground */}
+        {/* Ground — paved strip */}
         <div>
-          <div className="h-1.5 relative" style={{ backgroundColor: "#D4CEC3", borderTop: "2px solid #CCC5B9", boxShadow: "0 4px 20px rgba(124,90,201,0.06)" }}>
-            <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, transparent 10%, rgba(124,90,201,0.04) 50%, transparent 90%)" }} />
+          <div className="relative" style={{ height: 6, backgroundColor: "#CCC5B9", borderTop: "2px solid #B8B0A2" }}>
+            <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, transparent 5%, rgba(124,90,201,0.05) 50%, transparent 95%)" }} />
           </div>
-          <div className="text-center mt-5 sm:mt-7">
-            <div className="inline-block px-5 py-1" style={{ border: "1px solid #DDD8CE", borderRadius: 2 }}>
+          {/* Sidewalk texture */}
+          <div className="h-2" style={{ backgroundColor: "#D8D2C7" }} />
+          <div className="text-center mt-6 sm:mt-8">
+            <div className="inline-flex items-center gap-3">
+              <div className="h-px w-6" style={{ backgroundColor: "#DDD8CE" }} />
               <span className="text-[8px] sm:text-[10px] tracking-[0.5em] uppercase" style={{ color: "#C8C1B4" }}>
                 빌라 아파트 단지
               </span>
+              <div className="h-px w-6" style={{ backgroundColor: "#DDD8CE" }} />
             </div>
           </div>
         </div>
@@ -216,15 +226,15 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           className="grid grid-cols-3 gap-8 mt-16 sm:mt-24 pt-8"
-          style={{ borderTop: "1px solid rgba(124,90,201,0.15)" }}
+          style={{ borderTop: "1px solid rgba(124,90,201,0.12)" }}
         >
           {[
             { value: "80+", label: "빌더" },
             { value: String(totalProjects), label: "프로젝트" },
             { value: `${maxFloor + 1}F`, label: "현재 층수" },
           ].map((stat) => (
-            <div key={stat.label} className="text-center sm:text-left">
-              <span className="text-3xl sm:text-5xl block mb-1" style={{ fontFamily: "var(--font-serif-en)", color: "#1C1917" }}>{stat.value}</span>
+            <div key={stat.label} className="text-center">
+              <span className="text-3xl sm:text-5xl block mb-2" style={{ fontFamily: "var(--font-serif-en)", color: "#1C1917" }}>{stat.value}</span>
               <span className="text-[10px] sm:text-[11px] tracking-[0.2em] uppercase" style={{ color: "#9A9286" }}>{stat.label}</span>
             </div>
           ))}
