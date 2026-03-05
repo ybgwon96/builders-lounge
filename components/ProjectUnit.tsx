@@ -9,57 +9,64 @@ interface ProjectUnitProps {
 }
 
 export function ProjectUnit({ project, index }: ProjectUnitProps) {
-  const unitNumber = `${project.floor + 1}0${project.unit + 1}`;
+  const unit = `${project.floor + 1}0${project.unit + 1}`;
+  const displayNum = String(index + 1).padStart(2, "0");
 
   return (
     <motion.a
       href={project.thread_url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative block"
-      initial={{ opacity: 0, y: 24 }}
+      className="group block border-b border-border last:border-b-0"
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, margin: "-60px" }}
       transition={{
-        delay: index * 0.08,
-        duration: 0.5,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        delay: index * 0.04,
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1],
       }}
     >
-      <div className="relative overflow-hidden rounded-lg border border-villa-steel/30 bg-gradient-to-b from-villa-dark/80 to-villa-navy/60 backdrop-blur-sm p-5 h-full transition-all duration-300 group-hover:border-villa-glow/40 group-hover:shadow-[0_0_30px_rgba(245,166,35,0.08)]">
-        {/* Hover glow overlay */}
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-b from-villa-glow/[0.04] via-transparent to-transparent" />
+      <div className="grid grid-cols-[auto_1fr_auto] sm:grid-cols-[60px_1fr_120px_auto] items-center gap-4 sm:gap-8 py-6 sm:py-8 px-1 transition-all duration-500 group-hover:px-3">
+        {/* Number */}
+        <span className="font-serif text-3xl sm:text-4xl text-text-faint group-hover:text-gold transition-colors duration-500 leading-none">
+          {displayNum}
+        </span>
 
-        {/* Window light effect (top-right corner) */}
-        <div className="absolute top-0 right-0 w-16 h-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-          <div className="absolute top-2 right-2 w-3 h-4 rounded-sm bg-villa-amber/20 shadow-[0_0_12px_rgba(255,215,0,0.3)]" />
-        </div>
-
-        {/* Unit number badge */}
-        <div className="absolute top-3 right-3 font-mono text-[10px] tracking-wider text-villa-steel group-hover:text-villa-glow/60 transition-colors">
-          {unitNumber}호
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10">
-          <h3 className="font-display font-700 text-base text-villa-light group-hover:text-white transition-colors mb-1.5 pr-12">
-            {project.name}
-          </h3>
-          <p className="text-sm text-villa-muted/70 leading-relaxed mb-3 line-clamp-2">
-            {project.description}
-          </p>
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded-full bg-villa-steel/40 flex items-center justify-center text-[9px] font-display font-600 text-villa-muted">
-              {project.builder_name.charAt(0)}
-            </div>
-            <span className="text-xs font-display text-villa-neon/70 group-hover:text-villa-neon transition-colors">
-              {project.builder_name}
+        {/* Main content */}
+        <div className="min-w-0">
+          <div className="flex items-baseline gap-3 mb-1">
+            <h3 className="font-sans font-semibold text-base sm:text-lg text-text group-hover:text-gold-hover transition-colors duration-300 truncate">
+              {project.name}
+            </h3>
+            <span className="text-[10px] tracking-[0.15em] text-text-faint uppercase shrink-0 hidden sm:inline">
+              Unit {unit}
             </span>
           </div>
+          <p className="text-[13px] text-text-dim leading-relaxed truncate">
+            {project.description}
+          </p>
         </div>
 
-        {/* Bottom accent line */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-villa-glow/0 to-transparent group-hover:via-villa-glow/30 transition-all duration-500" />
+        {/* Builder name — hidden on mobile */}
+        <span className="text-[12px] text-text-dim hidden sm:block text-right">
+          {project.builder_name}
+        </span>
+
+        {/* Arrow */}
+        <div className="flex items-center justify-center w-8 h-8">
+          <svg
+            className="w-4 h-4 text-text-faint group-hover:text-gold transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <path
+              d="M4 12L12 4M12 4H6M12 4V10"
+              stroke="currentColor"
+              strokeWidth={1}
+            />
+          </svg>
+        </div>
       </div>
     </motion.a>
   );
