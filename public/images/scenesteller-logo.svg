@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Background: Solid Indigo rounded square -->
+  <rect x="32" y="32" width="448" height="448" rx="96" fill="#6366F1"/>
+
+  <!-- Film strip icon (centered) -->
+  <g transform="translate(256, 256)">
+    <!-- Film perforations (left side) -->
+    <rect x="-140" y="-75" width="28" height="40" rx="6" fill="white"/>
+    <rect x="-140" y="-15" width="28" height="40" rx="6" fill="white"/>
+    <rect x="-140" y="45" width="28" height="40" rx="6" fill="white"/>
+
+    <!-- Main film frame with semi-transparent fill -->
+    <rect x="-95" y="-110" width="200" height="220" rx="16" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="12"/>
+
+    <!-- Play triangle (Amber accent) -->
+    <polygon points="-15,-50 65,0 -15,50" fill="#F59E0B"/>
+  </g>
+</svg>
