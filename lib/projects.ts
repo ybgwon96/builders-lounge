@@ -8,11 +8,11 @@ import type { Project } from "./types";
 const MOCK_PROJECTS: Project[] = [
   // === AI동 (unit: 0) ===
   { id: "1", name: "스타트업 만물상", builder_name: "Y", description: "스타트업 창업자들과 투자자들이 한 번쯤 필요로 할 무료 도구 모음 사이트", thread_url: "https://yoongjae.com/tools/", floor: 0, unit: 0, created_at: new Date().toISOString() },
-  { id: "2", name: "티치링", builder_name: "김태경", description: "실시간 강의실 좌석 배치 및 학습 진도 관리 시스템", thread_url: "https://www.threads.net/@ktree_tgkim", floor: 0, unit: 0, created_at: new Date().toISOString() },
+  { id: "2", name: "티치링", builder_name: "김태경", description: "실시간 강의실 좌석 배치 및 학습 진도 관리 시스템", thread_url: "https://www.threads.net/@ktree_tgkim", threads_id: "ktree_tgkim", floor: 0, unit: 0, created_at: new Date().toISOString() },
   { id: "3", name: "Smooth AI", builder_name: "달곰바미", description: "영어 미팅을 위한 실시간 AI 미팅 비서", thread_url: "https://trysmooth.ai", floor: 1, unit: 0, created_at: new Date().toISOString() },
 
   // === B2B동 (unit: 3) ===
-  { id: "4", name: "Office Gatekeeper", builder_name: "Architect", description: "엑셀 파일의 SaveAs를 막는 솔루션", thread_url: "https://gatekeeper.heritage-labs.net", image_url: "/images/office-gatekeeper-logo.png", floor: 0, unit: 3, created_at: new Date().toISOString() },
+  { id: "4", name: "Office Gatekeeper", builder_name: "Architect", description: "엑셀 파일의 SaveAs를 막는 솔루션", thread_url: "https://gatekeeper.heritage-labs.net", threads_id: "blck_met", image_url: "/images/office-gatekeeper-logo.png", floor: 0, unit: 3, created_at: new Date().toISOString() },
 ];
 
 export async function getProjects(): Promise<Project[]> {

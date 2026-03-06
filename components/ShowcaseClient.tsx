@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useCallback, useRef, useMemo } from "react";
+import { motion } from "framer-motion";
+import { useRef, useMemo, useState, useCallback, useEffect } from "react";
 import type { Project } from "@/lib/types";
 import { BuildingWindow } from "./ProjectUnit";
 
@@ -243,21 +243,41 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
 
   const totalPages = Math.ceil(buildings.length / BUILDINGS_PER_PAGE);
   const [page, setPage] = useState(0);
-  const directionRef = useRef(1); // 1 = next, -1 = prev
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cooldown = useRef(false);
+  const touchStartX = useRef(0);
 
-  const goNext = useCallback(() => {
-    directionRef.current = 1;
-    setPage((p) => Math.min(p + 1, totalPages - 1));
+  const goTo = useCallback((p: number) => {
+    setPage(Math.max(0, Math.min(p, totalPages - 1)));
   }, [totalPages]);
-  const goPrev = useCallback(() => {
-    directionRef.current = -1;
-    setPage((p) => Math.max(p - 1, 0));
-  }, []);
 
-  const visibleBuildings = buildings.slice(
-    page * BUILDINGS_PER_PAGE,
-    page * BUILDINGS_PER_PAGE + BUILDINGS_PER_PAGE,
-  );
+  // 트랙패드 좌우 스와이프
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaX) < 20 || Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      if (cooldown.current) return;
+      cooldown.current = true;
+      setTimeout(() => { cooldown.current = false; }, 400);
+      if (e.deltaX > 0) setPage((p) => Math.min(p + 1, totalPages - 1));
+      else setPage((p) => Math.max(p - 1, 0));
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [totalPages]);
+
+  // 터치 스와이프
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+  const onTouchEnd = useCallback((e: React.TouchEvent) => {
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(dx) < 50) return;
+    if (dx < 0) goTo(page + 1);
+    else goTo(page - 1);
+  }, [goTo, page]);
 
   return (
     <section id="showcase" className="relative overflow-hidden" style={{ backgroundColor: "#0F172A" }}>
@@ -341,74 +361,84 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
           </p>
         </motion.div>
 
-        {/* ── Scene: Carousel of Buildings ── */}
-        <div className="relative">
-          {/* Hover zones — invisible edge areas that trigger slide on mouse enter */}
-          {[
-            { show: page > 0, side: "left" as const, onTrigger: goPrev, path: "M12 4L6 10L12 16" },
-            { show: page < totalPages - 1, side: "right" as const, onTrigger: goNext, path: "M8 4L14 10L8 16" },
-          ].map(({ show, side, onTrigger, path }) => show && (
-            <div
-              key={side}
-              onMouseEnter={onTrigger}
-              className={`absolute ${side}-0 top-0 bottom-0 z-20 w-12 sm:w-16 flex items-center ${
-                side === "left" ? "cursor-w-resize justify-start pl-1" : "cursor-e-resize justify-end pr-1"
-              }`}
+        {/* ── Scene: Building carousel ── */}
+        <div className="relative z-10">
+          {/* 좌우 화살표 */}
+          {page > 0 && (
+            <button
+              onClick={() => goTo(page - 1)}
+              className="absolute left-2 sm:-left-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-opacity hover:opacity-100 opacity-70"
+              style={{ backgroundColor: "rgba(124,90,201,0.25)", backdropFilter: "blur(4px)" }}
             >
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full pointer-events-none"
-                style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
-              >
-                <svg className="w-3 h-3 sm:w-4 sm:h-4" viewBox="0 0 20 20" fill="none">
-                  <path d={path} stroke="rgba(255,255,255,0.4)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </motion.div>
-            </div>
-          ))}
+              <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none">
+                <path d="M12 4L6 10L12 16" stroke="#F4F4F5" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          )}
+          {page < totalPages - 1 && (
+            <button
+              onClick={() => goTo(page + 1)}
+              className="absolute right-2 sm:-right-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-opacity hover:opacity-100 opacity-70"
+              style={{ backgroundColor: "rgba(124,90,201,0.25)", backdropFilter: "blur(4px)" }}
+            >
+              <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none">
+                <path d="M8 4L14 10L8 16" stroke="#F4F4F5" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          )}
 
-          {/* Buildings carousel */}
-          <div className="relative z-10 overflow-hidden">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={page}
-                initial={{ x: directionRef.current * 300, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: directionRef.current * -300, opacity: 0 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="flex items-end justify-center gap-4 sm:gap-8 lg:gap-12"
-              >
-                {visibleBuildings.map((b, i) => (
-                  <Building
-                    key={b.name}
-                    name={b.name}
-                    displayFloors={globalMaxFloors}
-                    projects={b.projects}
-                    index={i}
-                    showFloorLabels={i === 0}
-                  />
-                ))}
-              </motion.div>
-            </AnimatePresence>
+          <div
+            ref={containerRef}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+            className="overflow-hidden"
+          >
+            <motion.div
+              animate={{ x: `-${page * 100}%` }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="flex"
+            >
+            {Array.from({ length: totalPages }, (_, pageIdx) => {
+              const pair = buildings.slice(
+                pageIdx * BUILDINGS_PER_PAGE,
+                pageIdx * BUILDINGS_PER_PAGE + BUILDINGS_PER_PAGE,
+              );
+              return (
+                <div
+                  key={pageIdx}
+                  className="flex items-end justify-center gap-4 sm:gap-8 flex-shrink-0 w-full"
+                >
+                  {pair.map((b, i) => (
+                    <Building
+                      key={b.name}
+                      name={b.name}
+                      displayFloors={globalMaxFloors}
+                      projects={b.projects}
+                      index={i}
+                      showFloorLabels={i === 0}
+                    />
+                  ))}
+                </div>
+              );
+            })}
+          </motion.div>
           </div>
 
           {/* Dot indicators */}
-          <div className="flex items-center justify-center gap-2 mt-6">
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  directionRef.current = i > page ? 1 : -1;
-                  setPage(i);
-                }}
-                className="w-2 h-2 rounded-full transition-colors"
-                style={{
-                  backgroundColor: i === page ? "#7C5AC9" : "rgba(255,255,255,0.2)",
-                }}
-              />
-            ))}
-          </div>
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 mt-6">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i)}
+                  className="w-2 h-2 rounded-full transition-colors"
+                  style={{
+                    backgroundColor: i === page ? "#7C5AC9" : "rgba(255,255,255,0.2)",
+                  }}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Stats */}

@@ -55,10 +55,14 @@ body {
   background: rgba(124, 90, 201, 0.18);
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 6px; }
+/* Custom scrollbar — vertical only */
+::-webkit-scrollbar { width: 6px; height: 0; }
 ::-webkit-scrollbar-track { background: var(--color-bg); }
 ::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 3px; }
+
+/* Hide scrollbar for carousel */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* Marquee */
 @keyframes marquee {

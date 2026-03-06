@@ -29,10 +29,11 @@ export function BuildingWindow({ project }: { project: Project | null }) {
   }
 
   const threadsHandle = useMemo(() =>
-    project.thread_url.includes("threads.net")
-      ? project.thread_url.split("@").pop()?.replace(/\/$/, "") ?? null
-      : null,
-    [project.thread_url],
+    project.threads_id
+      ?? (project.thread_url.includes("threads.net")
+        ? project.thread_url.split("@").pop()?.replace(/\/$/, "") ?? null
+        : null),
+    [project.threads_id, project.thread_url],
   );
 
   return (
