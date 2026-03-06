@@ -9,10 +9,15 @@ export function LogoIcon({ size = 24, className }: { size?: number; className?: 
       className={className}
     >
       <rect width="32" height="32" rx="7" fill="#C4713B" />
-      <rect x="6" y="6" width="9" height="9" rx="1.5" fill="rgba(255,255,255,0.18)" />
-      <rect x="17" y="6" width="9" height="9" rx="1.5" fill="rgba(255,255,255,0.18)" />
-      <rect x="6" y="17" width="9" height="9" rx="1.5" fill="rgba(255,255,255,0.18)" />
-      <rect x="17" y="17" width="9" height="9" rx="1.5" fill="white" />
+      <rect x="9" y="5" width="14" height="23" rx="1" fill="white" />
+      <rect x="11.5" y="8" width="3.5" height="3" rx="0.5" fill="#FFD88A" />
+      <rect x="17" y="8" width="3.5" height="3" rx="0.5" fill="rgba(255,255,255,0.3)" />
+      <rect x="11.5" y="13.5" width="3.5" height="3" rx="0.5" fill="rgba(255,255,255,0.3)" />
+      <rect x="17" y="13.5" width="3.5" height="3" rx="0.5" fill="#FFD88A" />
+      <rect x="11.5" y="19" width="3.5" height="3" rx="0.5" fill="#FFD88A" />
+      <rect x="17" y="19" width="3.5" height="3" rx="0.5" fill="rgba(255,255,255,0.3)" />
+      <rect x="14" y="24" width="4" height="4" rx="1" fill="#A05A2C" />
+      <circle cx="16.8" cy="26.2" r="0.4" fill="#FFD88A" />
     </svg>
   );
 }
