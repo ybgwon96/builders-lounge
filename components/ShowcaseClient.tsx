@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useCallback, useRef, useMemo } from "react";
 import type { Project } from "@/lib/types";
 import { BuildingWindow } from "./ProjectUnit";
 
@@ -8,7 +9,8 @@ interface ShowcaseClientProps {
   projects: Project[];
 }
 
-const DONG_NAMES = ["AI", "Marketing", "Small Biz"];
+const DONG_NAMES = ["AI", "Marketing", "Small Biz", "B2B", "Utility", "Contents"];
+const BUILDINGS_PER_PAGE = 2;
 
 const STARS: { top: string; left: string; size: number; opacity: number }[] = [
   { top: "6%", left: "12%", size: 2, opacity: 0.7 },
@@ -36,11 +38,13 @@ function Building({
   displayFloors,
   projects,
   index,
+  showFloorLabels = false,
 }: {
   name: string;
   displayFloors: number;
   projects: Project[];
   index: number;
+  showFloorLabels?: boolean;
 }) {
   const byFloor = new Map<number, Project[]>();
   for (const p of projects) {
@@ -65,7 +69,7 @@ function Building({
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 1, delay: index * 0.18, ease: [0.16, 1, 0.3, 1] }}
       className="flex flex-col flex-1 min-w-0"
-      style={{ maxWidth: 320 }}
+      style={{ maxWidth: 420 }}
     >
       {/* Building name */}
       <div className="text-center mb-3">
@@ -113,7 +117,7 @@ function Building({
               <div className="mx-1 sm:mx-2" style={{ height: 2, backgroundColor: "#333338", borderRadius: 1 }} />
             )}
             <div className="relative">
-              {index === 0 && (
+              {showFloorLabels && (
                 <div className="absolute right-full top-1/2 -translate-y-1/2 pr-2 sm:pr-3">
                   <span className="text-[10px] sm:text-[13px] whitespace-nowrap" style={{ fontFamily: "var(--font-serif-en)", color: "#71717A" }}>
                     {num + 1}F
@@ -166,61 +170,55 @@ function Building({
 
 
 /* ── Background City Skyline — full-width, realistic proportions ── */
+type BuildingTuple = [number, number, number, number, number];
+
+const FAR_BUILDINGS: BuildingTuple[] = [
+  [0,   50, 65, 150, 0.06], [70,  25, 50, 175, 0.07], [125, 60, 65, 140, 0.055],
+  [195, 15, 45, 185, 0.08], [245, 45, 55, 155, 0.065], [305, 35, 48, 165, 0.07],
+  [370, 75, 50, 125, 0.045], [425, 55, 45, 145, 0.05], [475, 85, 55, 115, 0.04],
+  [535, 65, 45, 135, 0.05], [585, 80, 50, 120, 0.045], [640, 60, 40, 140, 0.05],
+  [685, 75, 50, 125, 0.045], [740, 65, 45, 135, 0.05], [790, 80, 55, 120, 0.04],
+  [870, 40, 55, 160, 0.065], [930, 20, 50, 180, 0.08], [985, 50, 60, 150, 0.06],
+  [1050,10, 45, 190, 0.075], [1100,35, 55, 165, 0.065], [1160,25, 40, 175, 0.07],
+];
+
+const NEAR_BUILDINGS: BuildingTuple[] = [
+  [5,   70, 55, 130, 0.09], [65,  45, 45, 155, 0.10], [115, 75, 58, 125, 0.08],
+  [178, 35, 48, 165, 0.11], [230, 60, 60, 140, 0.09], [295, 50, 42, 150, 0.10],
+  [360, 95, 45, 105, 0.06], [410, 80, 50, 120, 0.065], [465, 100, 42, 100, 0.055],
+  [515, 85, 50, 115, 0.06], [570, 95, 42, 105, 0.055], [620, 78, 48, 122, 0.065],
+  [675, 90, 45, 110, 0.06], [725, 82, 50, 118, 0.065], [780, 95, 42, 105, 0.055],
+  [860, 60, 58, 140, 0.09], [923, 40, 48, 160, 0.11], [975, 65, 55, 135, 0.09],
+  [1035,30, 45, 170, 0.10], [1085,55, 58, 145, 0.09], [1148,42, 52, 158, 0.10],
+];
+
+const SKYLINE_LIGHTS: [number, number][] = [
+  [25,100],[25,125],[65,70],[65,100],[65,130],[110,105],[110,130],
+  [155,60],[155,90],[155,130],[195,90],[195,120],[250,80],[250,110],
+  [355,120],[355,140],[400,105],[400,130],[495,110],[495,135],
+  [550,120],[600,100],[600,125],[645,115],[645,138],[690,105],[690,130],
+  [790,108],[790,132],[840,100],
+  [915,90],[915,120],[915,150],[960,65],[960,100],[960,140],
+  [1010,95],[1010,125],[1055,55],[1055,90],[1055,130],
+  [1100,80],[1100,115],[1150,70],[1150,105],[1150,140],
+];
+
 function BackgroundSkyline() {
-  /* Buildings: [x, y, width, height, opacity] — spread across full width */
-  const farBuildings: [number, number, number, number, number][] = [
-    // Left cluster — wide, tall
-    [0,   50, 65, 150, 0.06], [70,  25, 50, 175, 0.07], [125, 60, 65, 140, 0.055],
-    [195, 15, 45, 185, 0.08], [245, 45, 55, 155, 0.065], [305, 35, 48, 165, 0.07],
-    // Center — lower, behind main buildings
-    [370, 75, 50, 125, 0.045], [425, 55, 45, 145, 0.05], [475, 85, 55, 115, 0.04],
-    [535, 65, 45, 135, 0.05], [585, 80, 50, 120, 0.045], [640, 60, 40, 140, 0.05],
-    [685, 75, 50, 125, 0.045], [740, 65, 45, 135, 0.05], [790, 80, 55, 120, 0.04],
-    // Right cluster — wide, tall
-    [870, 40, 55, 160, 0.065], [930, 20, 50, 180, 0.08], [985, 50, 60, 150, 0.06],
-    [1050,10, 45, 190, 0.075], [1100,35, 55, 165, 0.065], [1160,25, 40, 175, 0.07],
-  ];
-
-  const nearBuildings: [number, number, number, number, number][] = [
-    // Left — wider, more solid
-    [5,   70, 55, 130, 0.09], [65,  45, 45, 155, 0.10], [115, 75, 58, 125, 0.08],
-    [178, 35, 48, 165, 0.11], [230, 60, 60, 140, 0.09], [295, 50, 42, 150, 0.10],
-    // Center — shorter, subtler
-    [360, 95, 45, 105, 0.06], [410, 80, 50, 120, 0.065], [465, 100, 42, 100, 0.055],
-    [515, 85, 50, 115, 0.06], [570, 95, 42, 105, 0.055], [620, 78, 48, 122, 0.065],
-    [675, 90, 45, 110, 0.06], [725, 82, 50, 118, 0.065], [780, 95, 42, 105, 0.055],
-    // Right — wider, more solid
-    [860, 60, 58, 140, 0.09], [923, 40, 48, 160, 0.11], [975, 65, 55, 135, 0.09],
-    [1035,30, 45, 170, 0.10], [1085,55, 58, 145, 0.09], [1148,42, 52, 158, 0.10],
-  ];
-
-  /* Window lights: [x, y] */
-  const lights: [number, number][] = [
-    [25,100],[25,125],[65,70],[65,100],[65,130],[110,105],[110,130],
-    [155,60],[155,90],[155,130],[195,90],[195,120],[250,80],[250,110],
-    [355,120],[355,140],[400,105],[400,130],[495,110],[495,135],
-    [550,120],[600,100],[600,125],[645,115],[645,138],[690,105],[690,130],
-    [790,108],[790,132],[840,100],
-    [915,90],[915,120],[915,150],[960,65],[960,100],[960,140],
-    [1010,95],[1010,125],[1055,55],[1055,90],[1055,130],
-    [1100,80],[1100,115],[1150,70],[1150,105],[1150,140],
-  ];
-
   return (
     <svg
       viewBox="0 0 1200 200"
       preserveAspectRatio="none"
       className="absolute bottom-0 left-0 w-full h-full"
     >
-      {farBuildings.map(([x, y, w, h, o], i) => (
+      {FAR_BUILDINGS.map(([x, y, w, h, o], i) => (
         <rect key={`f${i}`} x={x} y={y} width={w} height={h}
           fill={`rgba(200,210,230,${o})`} />
       ))}
-      {nearBuildings.map(([x, y, w, h, o], i) => (
+      {NEAR_BUILDINGS.map(([x, y, w, h, o], i) => (
         <rect key={`n${i}`} x={x} y={y} width={w} height={h}
           fill={`rgba(180,195,220,${o})`} />
       ))}
-      {lights.map(([x, y], i) => (
+      {SKYLINE_LIGHTS.map(([x, y], i) => (
         <rect key={`l${i}`} x={x} y={y} width="2.5" height="2" rx="0.5"
           fill={i % 4 === 0 ? "rgba(255,215,140,0.22)" : "rgba(255,235,190,0.12)"} />
       ))}
@@ -230,22 +228,48 @@ function BackgroundSkyline() {
 
 
 export function ShowcaseClient({ projects }: ShowcaseClientProps) {
-  const buildings = DONG_NAMES.map((name, i) => {
-    const dongProjects = projects.filter((p) => p.unit === i);
-    const maxFloorInDong = Math.max(...dongProjects.map((p) => p.floor), -1);
+  const { buildings, globalMaxFloors, totalProjects } = useMemo(() => {
+    const b = DONG_NAMES.map((name, i) => {
+      const dongProjects = projects.filter((p) => p.unit === i);
+      const maxFloorInDong = Math.max(...dongProjects.map((p) => p.floor), -1);
+      return { name, totalFloors: maxFloorInDong + 1, projects: dongProjects };
+    });
     return {
-      name,
-      totalFloors: maxFloorInDong + 1,
-      projects: dongProjects,
+      buildings: b,
+      globalMaxFloors: Math.max(...b.map((x) => x.totalFloors), 5),
+      totalProjects: projects.length,
     };
-  });
+  }, [projects]);
 
-  const globalMaxFloors = Math.max(...buildings.map((b) => b.totalFloors), 5);
-  const totalProjects = projects.length;
+  const totalPages = Math.ceil(buildings.length / BUILDINGS_PER_PAGE);
+  const [page, setPage] = useState(0);
+  const directionRef = useRef(1); // 1 = next, -1 = prev
+
+  const goNext = useCallback(() => {
+    directionRef.current = 1;
+    setPage((p) => Math.min(p + 1, totalPages - 1));
+  }, [totalPages]);
+  const goPrev = useCallback(() => {
+    directionRef.current = -1;
+    setPage((p) => Math.max(p - 1, 0));
+  }, []);
+
+  const visibleBuildings = buildings.slice(
+    page * BUILDINGS_PER_PAGE,
+    page * BUILDINGS_PER_PAGE + BUILDINGS_PER_PAGE,
+  );
 
   return (
-    <section id="showcase" className="relative py-24 sm:py-36 overflow-hidden" style={{ backgroundColor: "#0F172A" }}>
-      {/* ── Layer 0: Night sky gradient ── */}
+    <section id="showcase" className="relative overflow-hidden" style={{ backgroundColor: "#0F172A" }}>
+      {/* ── Top fade: light → dark ── */}
+      <div className="relative" style={{
+        height: 120,
+        background: "linear-gradient(180deg, #F4F4F6 0%, #DDDDE5 12%, #AAAAB8 28%, #6A6A82 45%, #35354F 65%, #1A1C34 82%, #0F172A 100%)",
+      }} />
+
+      {/* Main content area with padding */}
+      <div className="relative py-24 sm:py-36">
+        {/* ── Layer 0: Night sky gradient ── */}
       <div className="absolute inset-0 pointer-events-none" style={{
         background: "linear-gradient(180deg, #0B1120 0%, #151535 35%, #1A1830 55%, #141418 100%)",
       }} />
@@ -317,21 +341,74 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
           </p>
         </motion.div>
 
-        {/* ── Scene: Buildings + Ground as unified diorama ── */}
+        {/* ── Scene: Carousel of Buildings ── */}
         <div className="relative">
-          {/* 3 Buildings */}
-          <div className="relative z-10 flex items-end justify-center gap-2 sm:gap-6 lg:gap-8">
-            {buildings.map((b, i) => (
-              <Building
-                key={b.name}
-                name={b.name}
-                displayFloors={globalMaxFloors}
-                projects={b.projects}
-                index={i}
+          {/* Hover zones — invisible edge areas that trigger slide on mouse enter */}
+          {[
+            { show: page > 0, side: "left" as const, onTrigger: goPrev, path: "M12 4L6 10L12 16" },
+            { show: page < totalPages - 1, side: "right" as const, onTrigger: goNext, path: "M8 4L14 10L8 16" },
+          ].map(({ show, side, onTrigger, path }) => show && (
+            <div
+              key={side}
+              onMouseEnter={onTrigger}
+              className={`absolute ${side}-0 top-0 bottom-0 z-20 w-12 sm:w-16 flex items-center ${
+                side === "left" ? "cursor-w-resize justify-start pl-1" : "cursor-e-resize justify-end pr-1"
+              }`}
+            >
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+                className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full pointer-events-none"
+                style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+              >
+                <svg className="w-3 h-3 sm:w-4 sm:h-4" viewBox="0 0 20 20" fill="none">
+                  <path d={path} stroke="rgba(255,255,255,0.4)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </motion.div>
+            </div>
+          ))}
+
+          {/* Buildings carousel */}
+          <div className="relative z-10 overflow-hidden">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={page}
+                initial={{ x: directionRef.current * 300, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: directionRef.current * -300, opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-end justify-center gap-4 sm:gap-8 lg:gap-12"
+              >
+                {visibleBuildings.map((b, i) => (
+                  <Building
+                    key={b.name}
+                    name={b.name}
+                    displayFloors={globalMaxFloors}
+                    projects={b.projects}
+                    index={i}
+                    showFloorLabels={i === 0}
+                  />
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Dot indicators */}
+          <div className="flex items-center justify-center gap-2 mt-6">
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  directionRef.current = i > page ? 1 : -1;
+                  setPage(i);
+                }}
+                className="w-2 h-2 rounded-full transition-colors"
+                style={{
+                  backgroundColor: i === page ? "#7C5AC9" : "rgba(255,255,255,0.2)",
+                }}
               />
             ))}
           </div>
-
         </div>
 
         {/* Stats */}
@@ -354,6 +431,14 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
           ))}
         </motion.div>
       </div>
+
+      </div>
+
+      {/* ── Bottom fade: dark → light ── */}
+      <div className="relative" style={{
+        height: 120,
+        background: "linear-gradient(180deg, #0F172A 0%, #1A1C34 18%, #35354F 35%, #6A6A82 55%, #AAAAB8 72%, #DDDDE5 88%, #FAFAFA 100%)",
+      }} />
     </section>
   );
 }
