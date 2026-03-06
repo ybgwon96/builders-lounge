@@ -10,6 +10,10 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
+export const metadataBase = new URL(
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://builderslounge.vercel.app",
+);
+
 export const metadata: Metadata = {
   title: "빌라 — Builder's Lounge",
   description:
