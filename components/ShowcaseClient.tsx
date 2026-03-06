@@ -10,7 +10,16 @@ interface ShowcaseClientProps {
 }
 
 const DONG_NAMES = ["AI", "Marketing", "Small Biz", "B2B", "Utility", "Contents", "Platform", "Game"];
-const BUILDINGS_PER_PAGE = 2;
+function useBuildingsPerPage() {
+  const [perPage, setPerPage] = useState(2);
+  useEffect(() => {
+    const update = () => setPerPage(window.innerWidth < 640 ? 1 : 2);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+  return perPage;
+}
 
 
 function Building({
@@ -223,7 +232,8 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
     };
   }, [projects]);
 
-  const totalPages = Math.ceil(buildings.length / BUILDINGS_PER_PAGE);
+  const perPage = useBuildingsPerPage();
+  const totalPages = Math.ceil(buildings.length / perPage);
   const [page, setPage] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const cooldown = useRef(false);
@@ -348,8 +358,8 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
             >
             {Array.from({ length: totalPages }, (_, pageIdx) => {
               const pair = buildings.slice(
-                pageIdx * BUILDINGS_PER_PAGE,
-                pageIdx * BUILDINGS_PER_PAGE + BUILDINGS_PER_PAGE,
+                pageIdx * perPage,
+                pageIdx * perPage + perPage,
               );
               return (
                 <div
@@ -394,19 +404,13 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="grid grid-cols-3 gap-8 mt-4 pt-4"
+          className="flex justify-center mt-4 pt-4"
           style={{ borderTop: "1px solid rgba(196,113,59,0.15)" }}
         >
-          {[
-            { value: "80+", label: "빌더" },
-            { value: String(totalProjects), label: "프로젝트" },
-            { value: `${globalMaxFloors}F`, label: "현재 층수" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <span className="text-3xl sm:text-5xl block mb-2" style={{ fontFamily: "var(--font-serif-en)", color: "#18181B" }}>{stat.value}</span>
-              <span className="text-[10px] sm:text-[11px] tracking-[0.2em] uppercase" style={{ color: "#71717A" }}>{stat.label}</span>
-            </div>
-          ))}
+          <div className="text-center">
+            <span className="text-3xl sm:text-5xl block mb-2" style={{ fontFamily: "var(--font-serif-en)", color: "#18181B" }}>{totalProjects}</span>
+            <span className="text-[10px] sm:text-[11px] tracking-[0.2em] uppercase" style={{ color: "#71717A" }}>프로젝트</span>
+          </div>
         </motion.div>
       </div>
 
