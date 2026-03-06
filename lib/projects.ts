@@ -11,6 +11,10 @@ const MOCK_PROJECTS: Project[] = [
   { id: "2", name: "티치링", builder_name: "김태경", description: "실시간 강의실 좌석 배치 및 학습 진도 관리 시스템", thread_url: "https://www.threads.net/@ktree_tgkim", threads_id: "ktree_tgkim", floor: 0, unit: 0, created_at: new Date().toISOString() },
   { id: "3", name: "Smooth AI", builder_name: "달곰바미", description: "영어 미팅을 위한 실시간 AI 미팅 비서", thread_url: "https://trysmooth.ai", floor: 1, unit: 0, created_at: new Date().toISOString() },
   { id: "5", name: "scenesteller", builder_name: "엉클잡스", description: "콘텐츠 크리에이터를 위한 이미지, 영상 생성기", thread_url: "https://scenesteller.com", threads_id: "unclejobs.ai", image_url: "/images/scenesteller-logo.svg", floor: 1, unit: 0, created_at: new Date().toISOString() },
+  { id: "6", name: "체질식탁", builder_name: "잘잘", description: "AI 팔체질 영양 관리 전문가", thread_url: "https://www.threads.net/@zalzalkoreanmedicalclinic", threads_id: "zalzalkoreanmedicalclinic", image_url: "/images/chejil-siktap-logo.png", floor: 2, unit: 0, created_at: new Date().toISOString() },
+
+  // === 유틸리티동 (unit: 4) ===
+  { id: "7", name: "SATIRA", builder_name: "도마도", description: "데일리 체크인 및 자아탐구 서비스", thread_url: "https://www.threads.net/@maisondetomate", threads_id: "maisondetomate", image_url: "/images/satira-logo.png", floor: 0, unit: 4, created_at: new Date().toISOString() },
 
   // === B2B동 (unit: 3) ===
   { id: "4", name: "Office Gatekeeper", builder_name: "Architect", description: "엑셀 파일의 SaveAs를 막는 솔루션", thread_url: "https://gatekeeper.heritage-labs.net", threads_id: "blck_met", image_url: "/images/office-gatekeeper-logo.png", floor: 0, unit: 3, created_at: new Date().toISOString() },
