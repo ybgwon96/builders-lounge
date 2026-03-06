@@ -10,6 +10,27 @@ interface ShowcaseClientProps {
 
 const DONG_NAMES = ["AI", "Marketing", "Small Biz"];
 
+const STARS: { top: string; left: string; size: number; opacity: number }[] = [
+  { top: "6%", left: "12%", size: 2, opacity: 0.7 },
+  { top: "4%", left: "28%", size: 1.5, opacity: 0.5 },
+  { top: "12%", left: "45%", size: 2, opacity: 0.6 },
+  { top: "3%", left: "62%", size: 2.5, opacity: 0.8 },
+  { top: "8%", left: "78%", size: 1.5, opacity: 0.4 },
+  { top: "14%", left: "88%", size: 2, opacity: 0.6 },
+  { top: "5%", left: "95%", size: 1.5, opacity: 0.5 },
+  { top: "18%", left: "8%", size: 1.5, opacity: 0.45 },
+  { top: "10%", left: "35%", size: 2, opacity: 0.55 },
+  { top: "16%", left: "55%", size: 1.5, opacity: 0.4 },
+  { top: "20%", left: "72%", size: 2, opacity: 0.5 },
+  { top: "6%", left: "50%", size: 3, opacity: 0.85 },
+  { top: "11%", left: "18%", size: 1.5, opacity: 0.35 },
+  { top: "2%", left: "40%", size: 2, opacity: 0.6 },
+  { top: "22%", left: "30%", size: 1.5, opacity: 0.3 },
+  { top: "13%", left: "65%", size: 2, opacity: 0.5 },
+  { top: "7%", left: "82%", size: 1.5, opacity: 0.45 },
+  { top: "3%", left: "5%", size: 2, opacity: 0.55 },
+];
+
 function Building({
   name,
   displayFloors,
@@ -21,14 +42,19 @@ function Building({
   projects: Project[];
   index: number;
 }) {
-  const sorted = [...projects].sort((a, b) => a.floor - b.floor);
-  const floors: { num: number; windows: (Project | null)[] }[] = [];
+  const byFloor = new Map<number, Project[]>();
+  for (const p of projects) {
+    const arr = byFloor.get(p.floor);
+    if (arr) arr.push(p);
+    else byFloor.set(p.floor, [p]);
+  }
 
+  const floors: { num: number; windows: (Project | null)[] }[] = [];
   for (let f = displayFloors - 1; f >= 0; f--) {
-    const floorProjects = sorted.filter((p) => p.floor === f);
+    const fp = byFloor.get(f);
     floors.push({
       num: f,
-      windows: [floorProjects[0] ?? null, floorProjects[1] ?? null],
+      windows: [fp?.[0] ?? null, fp?.[1] ?? null],
     });
   }
 
@@ -41,61 +67,62 @@ function Building({
       className="flex flex-col flex-1 min-w-0"
       style={{ maxWidth: 320 }}
     >
-      {/* Building name — above the roof */}
+      {/* Building name */}
       <div className="text-center mb-3">
         <span
           className="text-[11px] sm:text-[13px] tracking-[0.2em] uppercase"
-          style={{ fontFamily: "var(--font-serif-en)", color: "#71717A" }}
+          style={{ fontFamily: "var(--font-serif-en)", color: "#A1A1AA" }}
         >
           {name}
         </span>
       </div>
 
-      {/* Rooftop structures — unified, symmetric */}
+      {/* Rooftop structures */}
       <div className="flex items-end justify-center gap-3 px-8 mb-px">
-        <div className="w-4 sm:w-5 h-2 sm:h-3 rounded-t-sm" style={{ backgroundColor: "#A1A1AA", border: "1px solid #BBBBC5", borderBottom: "none" }} />
+        <div className="w-4 sm:w-5 h-2 sm:h-3 rounded-t-sm" style={{ backgroundColor: "#52525B", border: "1px solid #3F3F46", borderBottom: "none" }} />
         <div className="flex flex-col items-center">
-          <div className="w-px h-4 sm:h-6" style={{ backgroundColor: "#D4D4D8" }} />
+          <div className="w-px h-4 sm:h-6" style={{ backgroundColor: "#52525B" }} />
           <motion.div
             className="w-1.5 h-1.5 rounded-full"
-            style={{ backgroundColor: "#7C5AC9", boxShadow: "0 0 6px rgba(124,90,201,0.3)" }}
+            style={{ backgroundColor: "#7C5AC9", boxShadow: "0 0 8px rgba(124,90,201,0.5)" }}
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2 + index * 0.3, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
-        <div className="w-3 sm:w-4 h-1.5 sm:h-2 rounded-t-sm" style={{ backgroundColor: "#BBBBC5", border: "1px solid #A1A1AA", borderBottom: "none" }} />
+        <div className="w-3 sm:w-4 h-1.5 sm:h-2 rounded-t-sm" style={{ backgroundColor: "#3F3F46", border: "1px solid #52525B", borderBottom: "none" }} />
       </div>
 
-      {/* Roof — cornice detail */}
+      {/* Roof */}
       <div className="relative">
-        <div className="h-1 rounded-t-[3px] mx-[-1px]" style={{ backgroundColor: "#A1A1AA" }} />
-        <div className="h-1.5 sm:h-2" style={{ backgroundColor: "#BBBBC5" }} />
+        <div className="h-1 rounded-t-[3px] mx-[-1px]" style={{ backgroundColor: "#52525B" }} />
+        <div className="h-1.5 sm:h-2" style={{ backgroundColor: "#3F3F46" }} />
       </div>
 
       {/* Floors */}
       <div
         style={{
-          backgroundColor: "#E4E4EA",
-          borderLeft: "2.5px solid #D4D4D8",
-          borderRight: "2.5px solid #D4D4D8",
-          boxShadow: "inset 2px 0 0 rgba(255,255,255,0.15), inset -2px 0 0 rgba(255,255,255,0.15)",
+          backgroundColor: "#27272A",
+          borderLeft: "2.5px solid #3F3F46",
+          borderRight: "2.5px solid #3F3F46",
+          boxShadow: "inset 2px 0 0 rgba(255,255,255,0.03), inset -2px 0 0 rgba(255,255,255,0.03)",
         }}
       >
         {floors.map(({ num, windows }, fi) => (
           <div key={num}>
             {fi > 0 && (
-              <div className="mx-1 sm:mx-2" style={{ height: 2, backgroundColor: "#DDDDE2", borderRadius: 1 }} />
+              <div className="mx-1 sm:mx-2" style={{ height: 2, backgroundColor: "#333338", borderRadius: 1 }} />
             )}
             <div className="relative">
-              {/* Floor number — absolute so it doesn't shift the grid */}
-              <div className="absolute left-1 sm:left-1.5 top-1/2 -translate-y-1/2 z-10">
-                <span className="text-[7px] sm:text-[8px]" style={{ color: "#A1A1AA", fontFamily: "var(--font-serif-en)" }}>
-                  {num + 1}F
-                </span>
-              </div>
+              {index === 0 && (
+                <div className="absolute right-full top-1/2 -translate-y-1/2 pr-2 sm:pr-3">
+                  <span className="text-[10px] sm:text-[13px] whitespace-nowrap" style={{ fontFamily: "var(--font-serif-en)", color: "#71717A" }}>
+                    {num + 1}F
+                  </span>
+                </div>
+              )}
               <div className="grid grid-cols-2 gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-2 sm:py-2.5">
                 {windows.map((proj, wi) => (
-                  <BuildingWindow key={proj?.id ?? `e-${index}-${num}-${wi}`} project={proj} floorNum={num} windowIndex={wi} />
+                  <BuildingWindow key={proj?.id ?? `e-${index}-${num}-${wi}`} project={proj} />
                 ))}
               </div>
             </div>
@@ -103,45 +130,104 @@ function Building({
         ))}
       </div>
 
-      {/* Entrance — refined proportions */}
+      {/* Entrance */}
       <div style={{
-        backgroundColor: "#DDDDE2",
-        borderLeft: "2.5px solid #D4D4D8",
-        borderRight: "2.5px solid #D4D4D8",
-        borderBottom: "3px solid #BBBBC5",
+        backgroundColor: "#27272A",
+        borderLeft: "2.5px solid #3F3F46",
+        borderRight: "2.5px solid #3F3F46",
+        borderBottom: "none",
       }}>
-        {/* Entrance floor line */}
-        <div className="h-px" style={{ backgroundColor: "#D4D4D8" }} />
+        <div className="h-px" style={{ backgroundColor: "#3F3F46" }} />
         <div className="flex items-end h-12 sm:h-16">
-          {/* Left wall */}
-          <div className="flex-1 h-full" style={{ backgroundColor: "#DDDDE2" }} />
-          {/* Door frame */}
+          <div className="flex-1 h-full" style={{ backgroundColor: "#27272A" }} />
           <div className="w-14 sm:w-18 h-full flex flex-col">
-            {/* Canopy */}
-            <div className="h-2 mx-[-6px] rounded-t-sm relative" style={{ backgroundColor: "#BBBBC5" }}>
-              <div className="absolute inset-x-0 bottom-0 h-px" style={{ backgroundColor: "#A1A1AA" }} />
+            <div className="h-2 mx-[-6px] rounded-t-sm relative" style={{ backgroundColor: "#3F3F46" }}>
+              <div className="absolute inset-x-0 bottom-0 h-px" style={{ backgroundColor: "#52525B" }} />
             </div>
-            {/* Door panels */}
-            <div className="flex-1 flex gap-[1px]" style={{ backgroundColor: "#A1A1AA" }}>
+            <div className="flex-1 flex gap-[1px]" style={{ backgroundColor: "#52525B" }}>
               {[0, 1].map((d) => (
                 <div key={d} className="flex-1 relative" style={{
-                  backgroundColor: "#18181B",
-                  backgroundImage: "linear-gradient(180deg, rgba(255,200,120,0.02) 0%, rgba(255,200,120,0.06) 100%)",
+                  backgroundColor: "#09090B",
+                  backgroundImage: "linear-gradient(180deg, rgba(255,200,120,0.02) 0%, rgba(255,200,120,0.08) 100%)",
                 }}>
                   <div className={`absolute top-1/2 -translate-y-1/2 ${d === 0 ? "right-1" : "left-1"}`}>
-                    <div className="w-[2px] h-2.5 sm:h-3.5 rounded-full" style={{ backgroundColor: "#9A8B7E", boxShadow: "0 0 3px rgba(196,149,106,0.25)" }} />
+                    <div className="w-[2px] h-2.5 sm:h-3.5 rounded-full" style={{ backgroundColor: "#9A8B7E", boxShadow: "0 0 4px rgba(196,149,106,0.35)" }} />
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          {/* Right wall */}
-          <div className="flex-1 h-full" style={{ backgroundColor: "#DDDDE2" }} />
+          <div className="flex-1 h-full" style={{ backgroundColor: "#27272A" }} />
         </div>
       </div>
     </motion.div>
   );
 }
+
+
+/* ── Background City Skyline — full-width, realistic proportions ── */
+function BackgroundSkyline() {
+  /* Buildings: [x, y, width, height, opacity] — spread across full width */
+  const farBuildings: [number, number, number, number, number][] = [
+    // Left cluster — wide, tall
+    [0,   50, 65, 150, 0.06], [70,  25, 50, 175, 0.07], [125, 60, 65, 140, 0.055],
+    [195, 15, 45, 185, 0.08], [245, 45, 55, 155, 0.065], [305, 35, 48, 165, 0.07],
+    // Center — lower, behind main buildings
+    [370, 75, 50, 125, 0.045], [425, 55, 45, 145, 0.05], [475, 85, 55, 115, 0.04],
+    [535, 65, 45, 135, 0.05], [585, 80, 50, 120, 0.045], [640, 60, 40, 140, 0.05],
+    [685, 75, 50, 125, 0.045], [740, 65, 45, 135, 0.05], [790, 80, 55, 120, 0.04],
+    // Right cluster — wide, tall
+    [870, 40, 55, 160, 0.065], [930, 20, 50, 180, 0.08], [985, 50, 60, 150, 0.06],
+    [1050,10, 45, 190, 0.075], [1100,35, 55, 165, 0.065], [1160,25, 40, 175, 0.07],
+  ];
+
+  const nearBuildings: [number, number, number, number, number][] = [
+    // Left — wider, more solid
+    [5,   70, 55, 130, 0.09], [65,  45, 45, 155, 0.10], [115, 75, 58, 125, 0.08],
+    [178, 35, 48, 165, 0.11], [230, 60, 60, 140, 0.09], [295, 50, 42, 150, 0.10],
+    // Center — shorter, subtler
+    [360, 95, 45, 105, 0.06], [410, 80, 50, 120, 0.065], [465, 100, 42, 100, 0.055],
+    [515, 85, 50, 115, 0.06], [570, 95, 42, 105, 0.055], [620, 78, 48, 122, 0.065],
+    [675, 90, 45, 110, 0.06], [725, 82, 50, 118, 0.065], [780, 95, 42, 105, 0.055],
+    // Right — wider, more solid
+    [860, 60, 58, 140, 0.09], [923, 40, 48, 160, 0.11], [975, 65, 55, 135, 0.09],
+    [1035,30, 45, 170, 0.10], [1085,55, 58, 145, 0.09], [1148,42, 52, 158, 0.10],
+  ];
+
+  /* Window lights: [x, y] */
+  const lights: [number, number][] = [
+    [25,100],[25,125],[65,70],[65,100],[65,130],[110,105],[110,130],
+    [155,60],[155,90],[155,130],[195,90],[195,120],[250,80],[250,110],
+    [355,120],[355,140],[400,105],[400,130],[495,110],[495,135],
+    [550,120],[600,100],[600,125],[645,115],[645,138],[690,105],[690,130],
+    [790,108],[790,132],[840,100],
+    [915,90],[915,120],[915,150],[960,65],[960,100],[960,140],
+    [1010,95],[1010,125],[1055,55],[1055,90],[1055,130],
+    [1100,80],[1100,115],[1150,70],[1150,105],[1150,140],
+  ];
+
+  return (
+    <svg
+      viewBox="0 0 1200 200"
+      preserveAspectRatio="none"
+      className="absolute bottom-0 left-0 w-full h-full"
+    >
+      {farBuildings.map(([x, y, w, h, o], i) => (
+        <rect key={`f${i}`} x={x} y={y} width={w} height={h}
+          fill={`rgba(200,210,230,${o})`} />
+      ))}
+      {nearBuildings.map(([x, y, w, h, o], i) => (
+        <rect key={`n${i}`} x={x} y={y} width={w} height={h}
+          fill={`rgba(180,195,220,${o})`} />
+      ))}
+      {lights.map(([x, y], i) => (
+        <rect key={`l${i}`} x={x} y={y} width="2.5" height="2" rx="0.5"
+          fill={i % 4 === 0 ? "rgba(255,215,140,0.22)" : "rgba(255,235,190,0.12)"} />
+      ))}
+    </svg>
+  );
+}
+
 
 export function ShowcaseClient({ projects }: ShowcaseClientProps) {
   const buildings = DONG_NAMES.map((name, i) => {
@@ -154,16 +240,57 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
     };
   });
 
-  // All buildings render with the same height
-  const globalMaxFloors = Math.max(...buildings.map((b) => b.totalFloors), 1);
+  const globalMaxFloors = Math.max(...buildings.map((b) => b.totalFloors), 5);
   const totalProjects = projects.length;
-  const maxFloor = Math.max(...projects.map((p) => p.floor), 0);
 
   return (
-    <section id="showcase" className="relative py-24 sm:py-36 overflow-hidden" style={{ backgroundColor: "#FAFAFA" }}>
-      {/* Morning sky gradient */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(180deg, #EEEEF5 0%, #FAFAFA 45%)" }} />
+    <section id="showcase" className="relative py-24 sm:py-36 overflow-hidden" style={{ backgroundColor: "#0F172A" }}>
+      {/* ── Layer 0: Night sky gradient ── */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: "linear-gradient(180deg, #0B1120 0%, #151535 35%, #1A1830 55%, #141418 100%)",
+      }} />
 
+      {/* ── Layer 1: Stars ── */}
+      <div className="absolute inset-0 pointer-events-none">
+        {STARS.map((star, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              top: star.top,
+              left: star.left,
+              width: star.size,
+              height: star.size,
+              backgroundColor: `rgba(255, 255, 255, ${star.opacity})`,
+              boxShadow: star.size >= 2.5
+                ? `0 0 ${star.size * 2}px rgba(255, 255, 255, ${star.opacity * 0.4})`
+                : undefined,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* ── Layer 2: Crescent moon ── */}
+      <div className="absolute pointer-events-none" style={{ top: "5%", right: "14%" }}>
+        <div className="relative" style={{
+          width: 22, height: 22, borderRadius: "50%",
+          backgroundColor: "rgba(255, 255, 255, 0.12)",
+          boxShadow: "0 0 20px rgba(255,255,255,0.06), 0 0 50px rgba(255,255,255,0.02)",
+        }}>
+          <div className="absolute" style={{
+            top: -3, left: 6, width: 20, height: 20, borderRadius: "50%",
+            backgroundColor: "#0E1428",
+          }} />
+        </div>
+      </div>
+
+      {/* ── Layer 3: Background city skyline — behind buildings ── */}
+      <div className="absolute inset-x-0 pointer-events-none" style={{ bottom: "22%", height: "45%" }}>
+        <BackgroundSkyline />
+      </div>
+
+
+      {/* ── Content ── */}
       <div className="relative z-10 px-4 sm:px-8 lg:px-16 max-w-[1100px] mx-auto">
         {/* Header */}
         <motion.div
@@ -174,51 +301,37 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
           className="text-center mb-16 sm:mb-24"
         >
           <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="h-px w-10" style={{ backgroundColor: "#E4E4E7" }} />
-            <span className="text-[10px] tracking-[0.4em] uppercase" style={{ color: "#71717A" }}>
+            <div className="h-px w-10" style={{ backgroundColor: "rgba(255,255,255,0.15)" }} />
+            <span className="text-[10px] tracking-[0.4em] uppercase" style={{ color: "#A1A1AA" }}>
               Our Complex
             </span>
-            <div className="h-px w-10" style={{ backgroundColor: "#E4E4E7" }} />
+            <div className="h-px w-10" style={{ backgroundColor: "rgba(255,255,255,0.15)" }} />
           </div>
           <h2 className="text-[clamp(2.2rem,5vw,4rem)] leading-[1.08] tracking-[-0.02em] font-bold mb-5">
-            <span style={{ color: "#18181B" }}>불 켜진 </span>
-            <span style={{ color: "#7C5AC9" }}>창문</span>
-            <span style={{ color: "#18181B" }}>들</span>
+            <span style={{ color: "#F4F4F5" }}>불 켜진 </span>
+            <span style={{ color: "#A78BFA" }}>창문</span>
+            <span style={{ color: "#F4F4F5" }}>들</span>
           </h2>
-          <p className="text-[14px] leading-[1.85]" style={{ color: "#52525B" }}>
+          <p className="text-[14px] leading-[1.85]" style={{ color: "#A1A1AA" }}>
             불 켜진 창문에 마우스를 올려보세요.
           </p>
         </motion.div>
 
-        {/* 3 Buildings — equal heights */}
-        <div className="flex items-end justify-center gap-2 sm:gap-6 lg:gap-8">
-          {buildings.map((b, i) => (
-            <Building
-              key={b.name}
-              name={b.name}
-              displayFloors={globalMaxFloors}
-              projects={b.projects}
-              index={i}
-            />
-          ))}
-        </div>
+        {/* ── Scene: Buildings + Ground as unified diorama ── */}
+        <div className="relative">
+          {/* 3 Buildings */}
+          <div className="relative z-10 flex items-end justify-center gap-2 sm:gap-6 lg:gap-8">
+            {buildings.map((b, i) => (
+              <Building
+                key={b.name}
+                name={b.name}
+                displayFloors={globalMaxFloors}
+                projects={b.projects}
+                index={i}
+              />
+            ))}
+          </div>
 
-        {/* Ground — paved strip */}
-        <div>
-          <div className="relative" style={{ height: 6, backgroundColor: "#D4D4D8", borderTop: "2px solid #BBBBC5" }}>
-            <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, transparent 5%, rgba(124,90,201,0.05) 50%, transparent 95%)" }} />
-          </div>
-          {/* Sidewalk texture */}
-          <div className="h-2" style={{ backgroundColor: "#DDDDE2" }} />
-          <div className="text-center mt-6 sm:mt-8">
-            <div className="inline-flex items-center gap-3">
-              <div className="h-px w-6" style={{ backgroundColor: "#E4E4E7" }} />
-              <span className="text-[8px] sm:text-[10px] tracking-[0.5em] uppercase" style={{ color: "#A1A1AA" }}>
-                빌라 아파트 단지
-              </span>
-              <div className="h-px w-6" style={{ backgroundColor: "#E4E4E7" }} />
-            </div>
-          </div>
         </div>
 
         {/* Stats */}
@@ -226,16 +339,16 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="grid grid-cols-3 gap-8 mt-16 sm:mt-24 pt-8"
-          style={{ borderTop: "1px solid rgba(124,90,201,0.12)" }}
+          className="grid grid-cols-3 gap-8 mt-4 pt-4"
+          style={{ borderTop: "1px solid rgba(124,90,201,0.15)" }}
         >
           {[
             { value: "80+", label: "빌더" },
             { value: String(totalProjects), label: "프로젝트" },
-            { value: `${maxFloor + 1}F`, label: "현재 층수" },
+            { value: `${globalMaxFloors}F`, label: "현재 층수" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <span className="text-3xl sm:text-5xl block mb-2" style={{ fontFamily: "var(--font-serif-en)", color: "#18181B" }}>{stat.value}</span>
+              <span className="text-3xl sm:text-5xl block mb-2" style={{ fontFamily: "var(--font-serif-en)", color: "#F4F4F5" }}>{stat.value}</span>
               <span className="text-[10px] sm:text-[11px] tracking-[0.2em] uppercase" style={{ color: "#71717A" }}>{stat.label}</span>
             </div>
           ))}
