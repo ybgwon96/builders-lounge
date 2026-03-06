@@ -52,11 +52,7 @@ function Building({
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 70 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 1, delay: index * 0.18, ease: [0.16, 1, 0.3, 1] }}
+    <div
       className="flex flex-col flex-1 min-w-0"
       style={{ maxWidth: 420 }}
     >
@@ -155,7 +151,7 @@ function Building({
           <div className="flex-1 h-full" style={{ backgroundColor: "#F5F0E8" }} />
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
