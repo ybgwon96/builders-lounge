@@ -2,7 +2,7 @@ import { getSupabase } from "./supabase";
 import type { Project } from "./types";
 
 // Mock data for development when Supabase is not configured
-// unit: 0=AI동, 1=마케팅동, 2=자영업동, 3=B2B동, 4=유틸리티동, 5=컨텐츠동
+// unit: 0=AI동, 1=마케팅동, 2=자영업동, 3=B2B동, 4=유틸리티동, 5=컨텐츠동, 6=플랫폼동, 7=게임동
 // floor: 0부터 시작 (0=1층, 1=2층, ...)
 // 각 동에 프로젝트가 순서대로 배치됨 (1층 왼쪽→오른쪽→2층 왼쪽→...)
 const MOCK_PROJECTS: Project[] = [

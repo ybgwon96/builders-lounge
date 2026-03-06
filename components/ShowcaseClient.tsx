@@ -9,7 +9,7 @@ interface ShowcaseClientProps {
   projects: Project[];
 }
 
-const DONG_NAMES = ["AI", "Marketing", "Small Biz", "B2B", "Utility", "Contents"];
+const DONG_NAMES = ["AI", "Marketing", "Small Biz", "B2B", "Utility", "Contents", "Platform", "Game"];
 const BUILDINGS_PER_PAGE = 2;
 
 const STARS: { top: string; left: string; size: number; opacity: number }[] = [
