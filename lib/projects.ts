@@ -13,6 +13,9 @@ const MOCK_PROJECTS: Project[] = [
   { id: "5", name: "scenesteller", builder_name: "엉클잡스", description: "콘텐츠 크리에이터를 위한 이미지, 영상 생성기", thread_url: "https://scenesteller.com", threads_id: "unclejobs.ai", image_url: "/images/scenesteller-logo.svg", floor: 1, unit: 0, created_at: new Date().toISOString() },
   { id: "6", name: "체질식탁", builder_name: "잘잘", description: "AI 팔체질 영양 관리 전문가", thread_url: "https://www.threads.net/@zalzalkoreanmedicalclinic", threads_id: "zalzalkoreanmedicalclinic", image_url: "/images/chejil-siktap-logo.png", floor: 2, unit: 0, created_at: new Date().toISOString() },
 
+  // === 자영업동 (unit: 2) ===
+  { id: "8", name: "미가청과", builder_name: "미가", description: "가락시장 경매 및 온오프라인 도매 소매 납품", thread_url: "https://naver.me/5ss7zgEQ", threads_id: "migafruit", image_url: "/images/migafruit-logo.jpeg", floor: 0, unit: 2, created_at: new Date().toISOString() },
+
   // === 유틸리티동 (unit: 4) ===
   { id: "7", name: "SATIRA", builder_name: "도마도", description: "데일리 체크인 및 자아탐구 서비스", thread_url: "https://www.threads.net/@maisondetomate", threads_id: "maisondetomate", image_url: "/images/satira-logo.png", floor: 0, unit: 4, created_at: new Date().toISOString() },
 
