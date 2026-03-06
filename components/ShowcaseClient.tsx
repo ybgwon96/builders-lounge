@@ -224,24 +224,27 @@ function BackgroundSkyline() {
 
 
 export function ShowcaseClient({ projects }: ShowcaseClientProps) {
-  const { buildings, globalMaxFloors, totalProjects } = useMemo(() => {
+  const { orderedBuildings, globalMaxFloors, totalProjects } = useMemo(() => {
     const b = DONG_NAMES.map((name, i) => {
       const dongProjects = projects.filter((p) => p.unit === i);
       const maxFloorInDong = Math.max(...dongProjects.map((p) => p.floor), -1);
       return { name, totalFloors: maxFloorInDong + 1, projects: dongProjects };
     });
-    const occupied = b.filter((x) => x.projects.length > 0);
-    const empty = b.filter((x) => x.projects.length === 0);
-    shuffle(occupied);
-    shuffle(empty);
-    const shuffled = [...occupied, ...empty];
-
     return {
-      buildings: shuffled,
+      orderedBuildings: b,
       globalMaxFloors: Math.max(...b.map((x) => x.totalFloors), 4),
       totalProjects: projects.length,
     };
   }, [projects]);
+
+  const [buildings, setBuildings] = useState(orderedBuildings);
+  useEffect(() => {
+    const occupied = orderedBuildings.filter((x) => x.projects.length > 0);
+    const empty = orderedBuildings.filter((x) => x.projects.length === 0);
+    shuffle(occupied);
+    shuffle(empty);
+    setBuildings([...occupied, ...empty]);
+  }, [orderedBuildings]);
 
   const perPage = useBuildingsPerPage();
   const totalPages = Math.ceil(buildings.length / perPage);

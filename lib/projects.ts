@@ -18,6 +18,7 @@ const MOCK_PROJECTS: Project[] = [
 
   // === 유틸리티동 (unit: 4) ===
   { id: "7", name: "SATIRA", builder_name: "도마도", description: "데일리 체크인 및 자아탐구 서비스", thread_url: "https://www.threads.net/@maisondetomate", threads_id: "maisondetomate", image_url: "/images/satira-logo.png", floor: 0, unit: 4, created_at: new Date().toISOString() },
+  { id: "9", name: "appkit", builder_name: "이연진", description: "3분만에 만드는 스토어 이미지", thread_url: "https://www.threads.net/@el_yeonjin", threads_id: "el_yeonjin", image_url: "/images/appkit-logo.png", floor: 0, unit: 4, created_at: new Date().toISOString() },
 
   // === B2B동 (unit: 3) ===
   { id: "4", name: "Office Gatekeeper", builder_name: "Architect", description: "엑셀 파일의 SaveAs를 막는 솔루션", thread_url: "https://gatekeeper.heritage-labs.net", threads_id: "blck_met", image_url: "/images/office-gatekeeper-logo.png", floor: 0, unit: 3, created_at: new Date().toISOString() },
