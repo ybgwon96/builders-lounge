@@ -195,11 +195,12 @@ export function CTA() {
         >
           {/* Heading */}
           <h2
-            className="text-[clamp(1.5rem,3.5vw,2.5rem)] leading-[1.35] tracking-[-0.01em] mb-3"
+            className="text-[clamp(1.5rem,3.5vw,2.5rem)] leading-[1.35] tracking-[-0.01em] mb-3 text-center"
+            style={{ fontFamily: "'Nanum Myeongjo', serif", fontWeight: 800 }}
           >
             저희는 <span style={{ color: "#C4713B" }}>계속 올라가는 중</span>입니다
           </h2>
-          <p className="text-[14px] sm:text-[15px] leading-[1.85] mb-14 sm:mb-20" style={{ color: "#52525B" }}>
+          <p className="text-[14px] sm:text-[15px] leading-[1.85] mb-14 sm:mb-20 text-center" style={{ color: "#52525B", fontFamily: "'Nanum Myeongjo', serif" }}>
             함께 타시겠습니까?
           </p>
 
