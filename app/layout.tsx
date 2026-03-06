@@ -14,11 +14,18 @@ export const metadata: Metadata = {
   title: "빌라 — Builder's Lounge",
   description:
     "Build in Public 하는 한국 쓰레더들의 모임. 함께 짓고, 함께 올라갑니다.",
+  keywords: ["빌라", "Builder's Lounge", "Build in Public", "쓰레드", "Threads", "빌더", "사이드프로젝트"],
   openGraph: {
     title: "빌라 — Builder's Lounge",
-    description: "Build in Public 하는 한국 쓰레더들의 모임",
+    description: "Build in Public 하는 한국 쓰레더들의 모임. 함께 짓고, 함께 올라갑니다.",
+    siteName: "빌라",
     locale: "ko_KR",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "빌라 — Builder's Lounge",
+    description: "Build in Public 하는 한국 쓰레더들의 모임. 함께 짓고, 함께 올라갑니다.",
   },
 };
 
