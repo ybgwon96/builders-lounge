@@ -10,6 +10,15 @@ interface ShowcaseClientProps {
 }
 
 const DONG_NAMES = ["AI", "Marketing", "Small Biz", "B2B", "Utility", "Contents", "Platform", "Game"];
+
+function shuffle<T>(arr: T[]): T[] {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 function useBuildingsPerPage() {
   const [perPage, setPerPage] = useState(2);
   useEffect(() => {
@@ -221,8 +230,14 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
       const maxFloorInDong = Math.max(...dongProjects.map((p) => p.floor), -1);
       return { name, totalFloors: maxFloorInDong + 1, projects: dongProjects };
     });
+    const occupied = b.filter((x) => x.projects.length > 0);
+    const empty = b.filter((x) => x.projects.length === 0);
+    shuffle(occupied);
+    shuffle(empty);
+    const shuffled = [...occupied, ...empty];
+
     return {
-      buildings: b,
+      buildings: shuffled,
       globalMaxFloors: Math.max(...b.map((x) => x.totalFloors), 4),
       totalProjects: projects.length,
     };
