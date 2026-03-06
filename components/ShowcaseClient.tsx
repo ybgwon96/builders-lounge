@@ -236,7 +236,7 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
     });
     return {
       buildings: b,
-      globalMaxFloors: Math.max(...b.map((x) => x.totalFloors), 5),
+      globalMaxFloors: Math.max(...b.map((x) => x.totalFloors), 4),
       totalProjects: projects.length,
     };
   }, [projects]);
