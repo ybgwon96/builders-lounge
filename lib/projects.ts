@@ -9,7 +9,7 @@ const MOCK_PROJECTS: Project[] = [
   // === AI동 (unit: 0) ===
   { id: "1", name: "스타트업 만물상", builder_name: "Y", description: "스타트업 창업자들과 투자자들이 한 번쯤 필요로 할 무료 도구 모음 사이트", thread_url: "https://yoongjae.com/tools/", floor: 0, unit: 0, created_at: new Date().toISOString() },
   { id: "2", name: "티치링", builder_name: "김태경", description: "실시간 강의실 좌석 배치 및 학습 진도 관리 시스템", thread_url: "https://www.threads.net/@ktree_tgkim", threads_id: "ktree_tgkim", floor: 0, unit: 0, created_at: new Date().toISOString() },
-  { id: "3", name: "Smooth AI", builder_name: "달곰바미", description: "영어 미팅을 위한 실시간 AI 미팅 비서", thread_url: "https://trysmooth.ai", floor: 1, unit: 0, created_at: new Date().toISOString() },
+  { id: "3", name: "Smooth AI", builder_name: "달곰바미", description: "영어 미팅을 위한 실시간 AI 미팅 비서", thread_url: "https://trysmooth.ai", threads_id: "dalgom.bami", image_url: "/images/smooth-ai-logo.png", floor: 1, unit: 0, created_at: new Date().toISOString() },
   { id: "5", name: "scenesteller", builder_name: "엉클잡스", description: "콘텐츠 크리에이터를 위한 이미지, 영상 생성기", thread_url: "https://scenesteller.com", threads_id: "unclejobs.ai", image_url: "/images/scenesteller-logo.svg", floor: 1, unit: 0, created_at: new Date().toISOString() },
   { id: "6", name: "체질식탁", builder_name: "잘잘", description: "AI 팔체질 영양 관리 전문가", thread_url: "https://www.threads.net/@zalzalkoreanmedicalclinic", threads_id: "zalzalkoreanmedicalclinic", image_url: "/images/chejil-siktap-logo.png", floor: 2, unit: 0, created_at: new Date().toISOString() },
 
