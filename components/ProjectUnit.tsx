@@ -7,22 +7,22 @@ import type { Project } from "@/lib/types";
 export function BuildingWindow({ project }: { project: Project | null }) {
   const [hovered, setHovered] = useState(false);
 
-  // Empty window — dark, no project
+  // Empty window — transparent glass
   if (!project) {
     return (
       <div className="relative">
         <div
-          className="relative aspect-[5/3] rounded-[2px] overflow-hidden"
-          style={{ border: "1.5px solid #3F3F46" }}
+          className="relative aspect-[5/3] rounded-[3px] overflow-hidden"
+          style={{ border: "1.5px solid #D4C4B0", boxShadow: "inset 0 1px 3px rgba(0,0,0,0.04)" }}
         >
           <div
             className="absolute inset-0"
-            style={{ backgroundColor: "#09090B" }}
+            style={{ backgroundColor: "rgba(200, 220, 240, 0.18)" }}
           >
           </div>
         </div>
         <div className="mx-[-1px]">
-          <div className="h-[2px] rounded-b-sm" style={{ backgroundColor: "#A1A1AA" }} />
+          <div className="h-[2px] rounded-b-sm" style={{ backgroundColor: "#D4C4B0" }} />
         </div>
       </div>
     );
@@ -42,29 +42,31 @@ export function BuildingWindow({ project }: { project: Project | null }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Window — clear glass */}
+      {/* Window — transparent glass */}
       <div
-        className="relative aspect-[5/3] rounded-[2px] overflow-hidden"
+        className="relative aspect-[5/3] rounded-[3px] overflow-hidden"
         style={{
-          border: hovered ? "2px solid #7C5AC9" : "1.5px solid rgba(255,255,255,0.12)",
-          background: "transparent",
-          boxShadow: hovered ? "0 0 14px rgba(124,90,201,0.3)" : "none",
+          border: hovered ? "2px solid #C4713B" : "1.5px solid #D4C4B0",
+          background: "rgba(200, 220, 240, 0.15)",
+          boxShadow: hovered
+            ? "0 0 14px rgba(196,113,59,0.3), inset 0 1px 3px rgba(0,0,0,0.04)"
+            : "inset 0 1px 3px rgba(0,0,0,0.04)",
           transition: "border-color 0.3s, box-shadow 0.3s",
         }}
       >
 
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5 px-1">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5 px-1.5 sm:px-1">
           {project.image_url && (
-            <img src={project.image_url} alt={project.name} className="w-5 h-5 sm:w-7 sm:h-7 object-contain mb-0.5" />
+            <img src={project.image_url} alt={project.name} className="w-4 h-4 sm:w-7 sm:h-7 object-contain mb-0.5" />
           )}
-          <span className="text-[8px] sm:text-[11px] font-bold leading-tight truncate max-w-full text-center" style={{ color: "#F4F4F5" }}>
+          <span className="text-[10px] sm:text-[11px] font-bold leading-tight truncate max-w-full text-center" style={{ color: "#18181B" }}>
             {project.name}
           </span>
-          <span className="text-[6px] sm:text-[8px] truncate max-w-full" style={{ color: "#A1A1AA" }}>
+          <span className="text-[8px] sm:text-[8px] truncate max-w-full" style={{ color: "#71717A" }}>
             {project.builder_name}
           </span>
           {threadsHandle && (
-            <span className="text-[5px] sm:text-[7px] truncate max-w-full" style={{ color: "#71717A" }}>
+            <span className="text-[7px] sm:text-[7px] truncate max-w-full" style={{ color: "#71717A" }}>
               @{threadsHandle}
             </span>
           )}
@@ -85,8 +87,8 @@ export function BuildingWindow({ project }: { project: Project | null }) {
             className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 z-50 w-52 sm:w-64 rounded-lg p-3 sm:p-4 cursor-pointer"
             style={{
               backgroundColor: "#FFFFFF",
-              border: "1.5px solid #7C5AC9",
-              boxShadow: "0 8px 32px rgba(124,90,201,0.18), 0 2px 8px rgba(0,0,0,0.08)",
+              border: "1.5px solid #C4713B",
+              boxShadow: "0 8px 32px rgba(196,113,59,0.18), 0 2px 8px rgba(0,0,0,0.08)",
             }}
           >
             <div className="flex items-center gap-2">
@@ -100,7 +102,7 @@ export function BuildingWindow({ project }: { project: Project | null }) {
             <p className="text-[9px] sm:text-[12px] mt-1.5 leading-relaxed" style={{ color: "#52525B" }}>
               {project.description}
             </p>
-            <div className="flex items-center justify-between mt-3 pt-2" style={{ borderTop: "1px solid #E4E4E7" }}>
+            <div className="flex items-center justify-between mt-3 pt-2" style={{ borderTop: "1px solid #E7E4E0" }}>
               <div className="flex flex-col">
                 <span className="text-[9px] sm:text-[12px] font-medium" style={{ color: "#9A8B7E" }}>{project.builder_name}</span>
                 {threadsHandle && (
@@ -110,9 +112,9 @@ export function BuildingWindow({ project }: { project: Project | null }) {
                 )}
               </div>
               <div className="flex items-center gap-1">
-                <span className="text-[8px] sm:text-[10px]" style={{ color: "#7C5AC9" }}>바로가기</span>
+                <span className="text-[8px] sm:text-[10px]" style={{ color: "#C4713B" }}>바로가기</span>
                 <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3" viewBox="0 0 16 16" fill="none">
-                  <path d="M4 12L12 4M12 4H6M12 4V10" stroke="#7C5AC9" strokeWidth={1.5} />
+                  <path d="M4 12L12 4M12 4H6M12 4V10" stroke="#C4713B" strokeWidth={1.5} />
                 </svg>
               </div>
             </div>
@@ -122,7 +124,7 @@ export function BuildingWindow({ project }: { project: Project | null }) {
 
       {/* Window sill */}
       <div className="mx-[-1px]">
-        <div className="h-[2px] rounded-b-sm" style={{ backgroundColor: "#A1A1AA" }} />
+        <div className="h-[2px] rounded-b-sm" style={{ backgroundColor: "#D4C4B0" }} />
       </div>
     </div>
   );

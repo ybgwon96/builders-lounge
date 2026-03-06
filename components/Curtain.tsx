@@ -10,7 +10,7 @@ export function Curtain() {
       {/* Purple curtain panel with circle clip reveal */}
       <motion.div
         className="absolute inset-0"
-        style={{ backgroundColor: "#7C5AC9" }}
+        style={{ backgroundColor: "#C4713B" }}
         initial={{ clipPath: "circle(150% at 50% 50%)" }}
         animate={{ clipPath: "circle(0% at 50% 50%)" }}
         transition={{ duration: 1.2, delay: 0.8, ease }}

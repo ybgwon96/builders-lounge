@@ -51,13 +51,13 @@ export function FloatingNav() {
             href={KAKAO_OPEN_CHAT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative px-5 py-2 text-white text-[11px] sm:text-[12px] font-medium tracking-[0.04em] overflow-hidden transition-shadow duration-400 hover:shadow-[0_0_20px_rgba(124,90,201,0.2)]"
-            style={{ backgroundColor: "#7C5AC9", borderRadius: 2 }}
+            className="group relative px-5 py-2 text-white text-[11px] sm:text-[12px] font-medium tracking-[0.04em] overflow-hidden transition-shadow duration-400 hover:shadow-[0_0_20px_rgba(196,113,59,0.2)]"
+            style={{ backgroundColor: "#C4713B", borderRadius: 2 }}
           >
             <span className="relative z-10">입주 신청</span>
             <div
               className="absolute inset-0 scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-              style={{ backgroundColor: "#6344A8" }}
+              style={{ backgroundColor: "#A85D30" }}
             />
           </a>
         </div>

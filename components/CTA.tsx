@@ -10,19 +10,19 @@ const EASE_OUT = [0.16, 1, 0.3, 1] as [number, number, number, number];
 /* ── Hairline stainless steel CSS ── */
 const STEEL_BASE = [
   "repeating-linear-gradient(90deg, transparent 0px, rgba(255,255,255,0.04) 1px, transparent 2px, transparent 3px)",
-  "linear-gradient(180deg, #C8C8D0 0%, #BEBEC8 25%, #C4C4CC 50%, #B8B8C2 75%, #C0C0C8 100%)",
+  "linear-gradient(180deg, #D0C8C0 0%, #C8BEB6 25%, #CCC4BC 50%, #C2B8B0 75%, #C8C0B8 100%)",
 ].join(", ");
 
 const STEEL_LEFT = [
   "repeating-linear-gradient(90deg, transparent 0px, rgba(255,255,255,0.04) 1px, transparent 2px, transparent 3px)",
   "linear-gradient(90deg, rgba(255,255,255,0.06) 0%, transparent 30%)",
-  "linear-gradient(180deg, #C8C8D0 0%, #BEBEC8 25%, #C4C4CC 50%, #B8B8C2 75%, #C0C0C8 100%)",
+  "linear-gradient(180deg, #D0C8C0 0%, #C8BEB6 25%, #CCC4BC 50%, #C2B8B0 75%, #C8C0B8 100%)",
 ].join(", ");
 
 const STEEL_RIGHT = [
   "repeating-linear-gradient(90deg, transparent 0px, rgba(255,255,255,0.04) 1px, transparent 2px, transparent 3px)",
   "linear-gradient(90deg, transparent 70%, rgba(255,255,255,0.06) 100%)",
-  "linear-gradient(180deg, #C4C4CC 0%, #BEBEC8 25%, #C8C8D0 50%, #B8B8C2 75%, #C0C0C8 100%)",
+  "linear-gradient(180deg, #CCC4BC 0%, #C8BEB6 25%, #D0C8C0 50%, #C2B8B0 75%, #C8C0B8 100%)",
 ].join(", ");
 
 function FloorIndicator({ maxFloor }: { maxFloor: number }) {
@@ -45,7 +45,7 @@ function FloorIndicator({ maxFloor }: { maxFloor: number }) {
         transition={{ duration: 1.4, repeat: Infinity }}
       >
         <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
-          <path d="M4 0L7.5 5.5H0.5L4 0Z" fill="#7C5AC9" />
+          <path d="M4 0L7.5 5.5H0.5L4 0Z" fill="#C4713B" />
         </svg>
       </motion.div>
       <div className="flex items-baseline gap-0">
@@ -60,15 +60,15 @@ function FloorIndicator({ maxFloor }: { maxFloor: number }) {
               className="block text-[22px] tabular-nums leading-none"
               style={{
                 fontFamily: "var(--font-serif-en)",
-                color: "#7C5AC9",
-                textShadow: "0 0 12px rgba(124,90,201,0.7)",
+                color: "#C4713B",
+                textShadow: "0 0 12px rgba(196,113,59,0.7)",
               }}
             >
               {floor}
             </motion.span>
           </AnimatePresence>
         </div>
-        <span className="text-[13px]" style={{ fontFamily: "var(--font-serif-en)", color: "rgba(124,90,201,0.7)" }}>
+        <span className="text-[13px]" style={{ fontFamily: "var(--font-serif-en)", color: "rgba(196,113,59,0.7)" }}>
           F
         </span>
       </div>
@@ -145,10 +145,10 @@ function CallButton({
           className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-400"
           style={{
             background: active
-              ? "radial-gradient(circle at 40% 35%, #9D7AED, #7C5AC9 60%)"
-              : "radial-gradient(circle at 40% 35%, #D4D4D8, #C0C0C8 60%)",
+              ? "radial-gradient(circle at 40% 35%, #D4925E, #C4713B 60%)"
+              : "radial-gradient(circle at 40% 35%, #D8D4CE, #C8C0B8 60%)",
             boxShadow: active
-              ? "0 0 16px rgba(124,90,201,0.5), 0 0 4px rgba(124,90,201,0.3), inset 0 1px 0 rgba(255,255,255,0.2)"
+              ? "0 0 16px rgba(196,113,59,0.5), 0 0 4px rgba(196,113,59,0.3), inset 0 1px 0 rgba(255,255,255,0.2)"
               : "0 1px 3px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.3), inset 0 -1px 2px rgba(0,0,0,0.05)",
           }}
           onMouseEnter={onHover}
@@ -182,7 +182,7 @@ export function CTA() {
     <section id="cta" className="relative overflow-hidden" style={{ backgroundColor: "#FAFAFA" }}>
       {/* Top divider */}
       <div className="px-6 sm:px-10 lg:px-16 max-w-[1200px] mx-auto">
-        <div className="h-px" style={{ backgroundColor: "rgba(124, 90, 201, 0.15)" }} />
+        <div className="h-px" style={{ backgroundColor: "rgba(196, 113, 59, 0.15)" }} />
       </div>
 
       <div className="px-6 sm:px-10 lg:px-16 max-w-[1200px] mx-auto py-24 sm:py-36">
@@ -197,7 +197,7 @@ export function CTA() {
           <h2
             className="text-[clamp(1.5rem,3.5vw,2.5rem)] leading-[1.35] tracking-[-0.01em] mb-3"
           >
-            저희는 <span style={{ color: "#7C5AC9" }}>계속 올라가는 중</span>입니다
+            저희는 <span style={{ color: "#C4713B" }}>계속 올라가는 중</span>입니다
           </h2>
           <p className="text-[14px] sm:text-[15px] leading-[1.85] mb-14 sm:mb-20" style={{ color: "#52525B" }}>
             함께 타시겠습니까?
@@ -221,9 +221,9 @@ export function CTA() {
                 marginLeft: "calc(-50vw + 50%)",
                 marginRight: "calc(-50vw + 50%)",
                 background: [
-                  "radial-gradient(ellipse 120% 80% at 30% 20%, rgba(235,235,240,0.6), transparent 50%)",
-                  "radial-gradient(ellipse 100% 60% at 70% 80%, rgba(230,230,236,0.4), transparent 50%)",
-                  "linear-gradient(170deg, #EDEDF0 0%, #E6E6EA 30%, #EBEBEE 60%, #E4E4E8 100%)",
+                  "radial-gradient(ellipse 120% 80% at 30% 20%, rgba(240,235,228,0.6), transparent 50%)",
+                  "radial-gradient(ellipse 100% 60% at 70% 80%, rgba(236,230,222,0.4), transparent 50%)",
+                  "linear-gradient(170deg, #F0EDE8 0%, #EAE6E0 30%, #EDEAE6 60%, #E8E4DE 100%)",
                 ].join(", "),
                 boxShadow: "inset 0 1px 0 rgba(0,0,0,0.04), inset 0 -1px 0 rgba(0,0,0,0.04)",
               }}
@@ -233,9 +233,9 @@ export function CTA() {
                 className="absolute inset-0 opacity-[0.03] pointer-events-none"
                 style={{
                   backgroundImage: [
-                    "linear-gradient(135deg, transparent 40%, rgba(180,180,190,0.8) 41%, transparent 42%)",
-                    "linear-gradient(115deg, transparent 55%, rgba(185,185,195,0.6) 56%, transparent 57%)",
-                    "linear-gradient(155deg, transparent 70%, rgba(175,175,185,0.5) 71%, transparent 72%)",
+                    "linear-gradient(135deg, transparent 40%, rgba(190,180,168,0.8) 41%, transparent 42%)",
+                    "linear-gradient(115deg, transparent 55%, rgba(195,185,172,0.6) 56%, transparent 57%)",
+                    "linear-gradient(155deg, transparent 70%, rgba(185,175,162,0.5) 71%, transparent 72%)",
                   ].join(", "),
                 }}
               />
@@ -269,7 +269,7 @@ export function CTA() {
                     <div
                       className="absolute inset-0 rounded-b-[2px]"
                       style={{
-                        background: "linear-gradient(180deg, #B0B0BA 0%, #A8A8B2 50%, #B0B0BA 100%)",
+                        background: "linear-gradient(180deg, #BAB0A8 0%, #B2A8A0 50%, #BAB0A8 100%)",
                         boxShadow: "0 4px 20px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.15)",
                       }}
                     />
@@ -298,7 +298,7 @@ export function CTA() {
                             right: "15%",
                             background: [
                               "repeating-linear-gradient(90deg, transparent 0px, rgba(255,255,255,0.02) 1px, transparent 2px, transparent 3px)",
-                              "linear-gradient(180deg, #C0C0C8 0%, #B8B8C2 20%, #BDBDC6 50%, #B8B8C2 80%, #B8B8C2 100%)",
+                              "linear-gradient(180deg, #C8C0B8 0%, #C2B8B0 20%, #C6BDB5 50%, #C2B8B0 80%, #C2B8B0 100%)",
                             ].join(", "),
                           }}
                         >
@@ -312,7 +312,7 @@ export function CTA() {
                             style={{
                               top: "55%",
                               height: 3,
-                              background: "linear-gradient(180deg, #CCCCDA, #A8A8B2, #BDBDC6)",
+                              background: "linear-gradient(180deg, #DACCC4, #B2A8A0, #C6BDB5)",
                               borderRadius: 1.5,
                               boxShadow: "0 1px 2px rgba(0,0,0,0.15), 0 -1px 0 rgba(255,255,255,0.1)",
                             }}
@@ -325,7 +325,7 @@ export function CTA() {
                               style={{
                                 top: "calc(55% - 3px)",
                                 left: `${pct}%`,
-                                background: "linear-gradient(180deg, #C4C4CC, #A8A8B2)",
+                                background: "linear-gradient(180deg, #CCC4BC, #B2A8A0)",
                                 boxShadow: "0 1px 1px rgba(0,0,0,0.1)",
                               }}
                             />
@@ -343,7 +343,7 @@ export function CTA() {
                           className="absolute top-0 bottom-0 left-0"
                           style={{
                             width: "15%",
-                            background: "linear-gradient(90deg, #28282E 0%, #8A8A94 30%, #A8A8B2 100%)",
+                            background: "linear-gradient(90deg, #28282E 0%, #948A82 30%, #B2A8A0 100%)",
                           }}
                         >
                           <div
@@ -359,7 +359,7 @@ export function CTA() {
                           className="absolute top-0 bottom-0 right-0"
                           style={{
                             width: "15%",
-                            background: "linear-gradient(90deg, #A8A8B2 0%, #8A8A94 70%, #28282E 100%)",
+                            background: "linear-gradient(90deg, #B2A8A0 0%, #948A82 70%, #28282E 100%)",
                           }}
                         >
                           <div
@@ -396,7 +396,7 @@ export function CTA() {
                           className="absolute top-0 left-0 right-0"
                           style={{
                             height: "12%",
-                            background: "linear-gradient(180deg, #28282E 0%, #9A9AA4 60%, #B0B0BA 100%)",
+                            background: "linear-gradient(180deg, #28282E 0%, #A49A92 60%, #BAB0A8 100%)",
                           }}
                         >
                           {/* Ceiling light strip */}
@@ -415,7 +415,7 @@ export function CTA() {
                           className="absolute bottom-0 left-0 right-0"
                           style={{
                             height: "10%",
-                            background: "linear-gradient(180deg, #7A7A84 0%, #4A4A50 40%, #28282E 100%)",
+                            background: "linear-gradient(180deg, #847A72 0%, #504A44 40%, #28282E 100%)",
                           }}
                         >
                           {/* Floor reflection of ceiling light */}
@@ -446,7 +446,7 @@ export function CTA() {
                         transition={{ duration: 0.2 }}
                         style={{
                           background:
-                            "linear-gradient(180deg, transparent 2%, rgba(124,90,201,0.08) 15%, rgba(250,250,250,0.06) 50%, rgba(124,90,201,0.08) 85%, transparent 98%)",
+                            "linear-gradient(180deg, transparent 2%, rgba(196,113,59,0.08) 15%, rgba(250,250,250,0.06) 50%, rgba(196,113,59,0.08) 85%, transparent 98%)",
                         }}
                       />
                     </div>
@@ -455,7 +455,7 @@ export function CTA() {
                     <div
                       className="absolute bottom-0 left-0 right-0 h-[5px] rounded-b-[2px]"
                       style={{
-                        background: "linear-gradient(180deg, #A8A8B2, #9A9AA4)",
+                        background: "linear-gradient(180deg, #B2A8A0, #A49A92)",
                         boxShadow: "0 1px 0 rgba(255,255,255,0.1)",
                       }}
                     />
@@ -485,7 +485,7 @@ export function CTA() {
                 <div
                   className="h-8 sm:h-12"
                   style={{
-                    background: "linear-gradient(180deg, #E4E4E7 0%, #E6E6EA 100%)",
+                    background: "linear-gradient(180deg, #E7E4E0 0%, #EAE6E0 100%)",
                   }}
                 />
               </div>
@@ -496,7 +496,7 @@ export function CTA() {
       </div>
 
       {/* Footer */}
-      <div style={{ borderTop: "1px solid #E4E4E7" }}>
+      <div style={{ borderTop: "1px solid #E7E4E0" }}>
         <div className="flex justify-between items-center px-6 sm:px-10 lg:px-16 py-6 max-w-[1200px] mx-auto">
           <span className="text-[10px] tracking-[0.2em] uppercase" style={{ color: "#A1A1AA" }}>
             &copy; 2026 Builder&apos;s Lounge

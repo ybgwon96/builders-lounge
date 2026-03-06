@@ -49,7 +49,7 @@ export function Hero() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, #E8E8F2 0%, #EDEDF3 20%, #F2F2F6 45%, #F8F8FA 70%, #FAFAFA 100%)",
+            "linear-gradient(180deg, #F0EBE4 0%, #F3EEE8 20%, #F6F2ED 45%, #F9F7F4 70%, #FAFAFA 100%)",
         }}
       />
 
@@ -59,7 +59,7 @@ export function Hero() {
         style={{
           background: [
             "radial-gradient(ellipse 50% 40% at 65% 20%, rgba(154,139,126,0.04), transparent 60%)",
-            "radial-gradient(ellipse 40% 35% at 30% 30%, rgba(124,90,201,0.02), transparent 50%)",
+            "radial-gradient(ellipse 40% 35% at 30% 30%, rgba(196,113,59,0.02), transparent 50%)",
           ].join(", "),
         }}
       />
@@ -78,7 +78,7 @@ export function Hero() {
         >
           <motion.div
             className="h-px w-8 sm:w-12"
-            style={{ backgroundColor: "#D4D4D8" }}
+            style={{ backgroundColor: "#D8D4CE" }}
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.8, delay: 1.4, ease }}
@@ -95,7 +95,7 @@ export function Hero() {
           </span>
           <motion.div
             className="h-px w-8 sm:w-12"
-            style={{ backgroundColor: "#D4D4D8" }}
+            style={{ backgroundColor: "#D8D4CE" }}
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.8, delay: 1.4, ease }}
@@ -120,7 +120,7 @@ export function Hero() {
             transition={{ duration: 1.2, delay: 1.65, ease }}
             className="text-[clamp(3rem,8vw,6.5rem)] leading-[1.06] tracking-[-0.03em] font-bold"
           >
-            <span style={{ color: "#7C5AC9" }}>사람들</span>
+            <span style={{ color: "#C4713B" }}>사람들</span>
             <span>의 공간</span>
           </motion.h1>
         </div>
@@ -147,13 +147,13 @@ export function Hero() {
         >
           <a
             href="#showcase"
-            className="group relative px-8 py-3.5 text-white text-[13px] font-medium tracking-[0.05em] overflow-hidden transition-shadow duration-500 hover:shadow-[0_0_30px_rgba(124,90,201,0.2)]"
-            style={{ backgroundColor: "#7C5AC9" }}
+            className="group relative px-8 py-3.5 text-white text-[13px] font-medium tracking-[0.05em] overflow-hidden transition-shadow duration-500 hover:shadow-[0_0_30px_rgba(196,113,59,0.2)]"
+            style={{ backgroundColor: "#C4713B" }}
           >
             <span className="relative z-10">둘러보기</span>
             <div
               className="absolute inset-0 scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-              style={{ backgroundColor: "#6344A8" }}
+              style={{ backgroundColor: "#A85D30" }}
             />
           </a>
           <a
@@ -168,7 +168,7 @@ export function Hero() {
               </span>
               <span
                 className="absolute left-0 -bottom-1 w-0 h-px group-hover:w-full transition-all duration-300"
-                style={{ backgroundColor: "rgba(124,90,201,0.4)" }}
+                style={{ backgroundColor: "rgba(196,113,59,0.4)" }}
               />
             </span>
           </a>
@@ -188,10 +188,10 @@ export function Hero() {
               style={{
                 left: `${b.x}%`,
                 width: `${b.w}%`,
-                backgroundColor: b.accent ? "#DADAE2" : "#E2E2E8",
-                borderLeft: "1px solid #D4D4DA",
-                borderRight: "1px solid #D4D4DA",
-                borderTop: "1.5px solid #CDCDD5",
+                backgroundColor: b.accent ? "#E2DCD4" : "#E8E2DA",
+                borderLeft: "1px solid #DAD4CC",
+                borderRight: "1px solid #DAD4CC",
+                borderTop: "1.5px solid #D5CFC7",
               }}
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: `${b.h}%`, opacity: 1 }}
@@ -213,7 +213,7 @@ export function Hero() {
                           className="aspect-[1.3/1] rounded-[0.5px]"
                           style={{
                             backgroundColor: lit
-                              ? "rgba(124,90,201,0.1)"
+                              ? "rgba(196,113,59,0.1)"
                               : "rgba(161,161,170,0.1)",
                           }}
                         />
@@ -230,14 +230,14 @@ export function Hero() {
                     className="absolute -top-3 sm:-top-4 left-1/2 -translate-x-1/2 w-px"
                     style={{
                       height: "12px",
-                      backgroundColor: "#CDCDD5",
+                      backgroundColor: "#D5CFC7",
                     }}
                   />
                   <motion.div
                     className="absolute -top-[15px] sm:-top-[19px] left-1/2 -translate-x-1/2 w-1 h-1 rounded-full"
                     style={{
-                      backgroundColor: "#7C5AC9",
-                      boxShadow: "0 0 6px rgba(124,90,201,0.3)",
+                      backgroundColor: "#C4713B",
+                      boxShadow: "0 0 6px rgba(196,113,59,0.3)",
                     }}
                     animate={{ opacity: [0.3, 0.8, 0.3] }}
                     transition={{
@@ -256,8 +256,8 @@ export function Hero() {
             className="absolute bottom-0 left-0 right-0"
             style={{
               height: 3,
-              backgroundColor: "#D4D4D8",
-              borderTop: "1px solid #CDCDD5",
+              backgroundColor: "#D8D4CE",
+              borderTop: "1px solid #D5CFC7",
             }}
           />
         </div>

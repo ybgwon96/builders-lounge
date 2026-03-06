@@ -4,18 +4,18 @@
 
 @theme inline {
   --color-bg: #FAFAFA;
-  --color-surface: #F4F4F6;
-  --color-surface-dim: #EBEBEE;
-  --color-border: #E4E4E7;
-  --color-border-strong: #D4D4D8;
+  --color-surface: #F5F3F0;
+  --color-surface-dim: #EDEAE6;
+  --color-border: #E7E4E0;
+  --color-border-strong: #D8D4CE;
   --color-text: #18181B;
   --color-text-mid: #52525B;
   --color-text-dim: #71717A;
   --color-text-faint: #A1A1AA;
 
-  --color-accent: #7C5AC9;
-  --color-accent-light: #9D7AED;
-  --color-accent-hover: #6344A8;
+  --color-accent: #C4713B;
+  --color-accent-light: #D4925E;
+  --color-accent-hover: #A85D30;
   --color-warm: #9A8B7E;
 
   --font-serif-en: "Instrument Serif", Georgia, serif;
@@ -24,17 +24,17 @@
 
 :root {
   --color-bg: #FAFAFA;
-  --color-surface: #F4F4F6;
-  --color-surface-dim: #EBEBEE;
-  --color-border: #E4E4E7;
-  --color-border-strong: #D4D4D8;
+  --color-surface: #F5F3F0;
+  --color-surface-dim: #EDEAE6;
+  --color-border: #E7E4E0;
+  --color-border-strong: #D8D4CE;
   --color-text: #18181B;
   --color-text-mid: #52525B;
   --color-text-dim: #71717A;
   --color-text-faint: #A1A1AA;
-  --color-accent: #7C5AC9;
-  --color-accent-light: #9D7AED;
-  --color-accent-hover: #6344A8;
+  --color-accent: #C4713B;
+  --color-accent-light: #D4925E;
+  --color-accent-hover: #A85D30;
   --color-warm: #9A8B7E;
 }
 
@@ -52,7 +52,7 @@ body {
 }
 
 ::selection {
-  background: rgba(124, 90, 201, 0.18);
+  background: rgba(196, 113, 59, 0.18);
 }
 
 /* Custom scrollbar — vertical only */

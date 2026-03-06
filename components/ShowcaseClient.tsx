@@ -12,26 +12,6 @@ interface ShowcaseClientProps {
 const DONG_NAMES = ["AI", "Marketing", "Small Biz", "B2B", "Utility", "Contents", "Platform", "Game"];
 const BUILDINGS_PER_PAGE = 2;
 
-const STARS: { top: string; left: string; size: number; opacity: number }[] = [
-  { top: "6%", left: "12%", size: 2, opacity: 0.7 },
-  { top: "4%", left: "28%", size: 1.5, opacity: 0.5 },
-  { top: "12%", left: "45%", size: 2, opacity: 0.6 },
-  { top: "3%", left: "62%", size: 2.5, opacity: 0.8 },
-  { top: "8%", left: "78%", size: 1.5, opacity: 0.4 },
-  { top: "14%", left: "88%", size: 2, opacity: 0.6 },
-  { top: "5%", left: "95%", size: 1.5, opacity: 0.5 },
-  { top: "18%", left: "8%", size: 1.5, opacity: 0.45 },
-  { top: "10%", left: "35%", size: 2, opacity: 0.55 },
-  { top: "16%", left: "55%", size: 1.5, opacity: 0.4 },
-  { top: "20%", left: "72%", size: 2, opacity: 0.5 },
-  { top: "6%", left: "50%", size: 3, opacity: 0.85 },
-  { top: "11%", left: "18%", size: 1.5, opacity: 0.35 },
-  { top: "2%", left: "40%", size: 2, opacity: 0.6 },
-  { top: "22%", left: "30%", size: 1.5, opacity: 0.3 },
-  { top: "13%", left: "65%", size: 2, opacity: 0.5 },
-  { top: "7%", left: "82%", size: 1.5, opacity: 0.45 },
-  { top: "3%", left: "5%", size: 2, opacity: 0.55 },
-];
 
 function Building({
   name,
@@ -75,7 +55,7 @@ function Building({
       <div className="text-center mb-3">
         <span
           className="text-[11px] sm:text-[13px] tracking-[0.2em] uppercase"
-          style={{ fontFamily: "var(--font-serif-en)", color: "#A1A1AA" }}
+          style={{ fontFamily: "var(--font-serif-en)", color: "#71717A" }}
         >
           {name}
         </span>
@@ -83,38 +63,38 @@ function Building({
 
       {/* Rooftop structures */}
       <div className="flex items-end justify-center gap-3 px-8 mb-px">
-        <div className="w-4 sm:w-5 h-2 sm:h-3 rounded-t-sm" style={{ backgroundColor: "#52525B", border: "1px solid #3F3F46", borderBottom: "none" }} />
+        <div className="w-4 sm:w-5 h-2 sm:h-3 rounded-t-sm" style={{ backgroundColor: "#C4A882", border: "1px solid #B89B74", borderBottom: "none" }} />
         <div className="flex flex-col items-center">
-          <div className="w-px h-4 sm:h-6" style={{ backgroundColor: "#52525B" }} />
+          <div className="w-px h-4 sm:h-6" style={{ backgroundColor: "#B89B74" }} />
           <motion.div
             className="w-1.5 h-1.5 rounded-full"
-            style={{ backgroundColor: "#7C5AC9", boxShadow: "0 0 8px rgba(124,90,201,0.5)" }}
+            style={{ backgroundColor: "#C4713B", boxShadow: "0 0 8px rgba(196,113,59,0.5)" }}
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2 + index * 0.3, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
-        <div className="w-3 sm:w-4 h-1.5 sm:h-2 rounded-t-sm" style={{ backgroundColor: "#3F3F46", border: "1px solid #52525B", borderBottom: "none" }} />
+        <div className="w-3 sm:w-4 h-1.5 sm:h-2 rounded-t-sm" style={{ backgroundColor: "#B89B74", border: "1px solid #C4A882", borderBottom: "none" }} />
       </div>
 
-      {/* Roof */}
+      {/* Roof — terracotta tile feel */}
       <div className="relative">
-        <div className="h-1 rounded-t-[3px] mx-[-1px]" style={{ backgroundColor: "#52525B" }} />
-        <div className="h-1.5 sm:h-2" style={{ backgroundColor: "#3F3F46" }} />
+        <div className="h-1.5 rounded-t-[4px] mx-[-2px]" style={{ backgroundColor: "#C4875A" }} />
+        <div className="h-2 sm:h-2.5" style={{ backgroundColor: "#D49B6E", borderBottom: "2px solid #B87D50" }} />
       </div>
 
-      {/* Floors */}
+      {/* Floors — warm villa wall */}
       <div
         style={{
-          backgroundColor: "#27272A",
-          borderLeft: "2.5px solid #3F3F46",
-          borderRight: "2.5px solid #3F3F46",
-          boxShadow: "inset 2px 0 0 rgba(255,255,255,0.03), inset -2px 0 0 rgba(255,255,255,0.03)",
+          backgroundColor: "#F5F0E8",
+          borderLeft: "3px solid #E8DFD2",
+          borderRight: "3px solid #E8DFD2",
+          boxShadow: "inset 2px 0 0 rgba(0,0,0,0.02), inset -2px 0 0 rgba(0,0,0,0.02)",
         }}
       >
         {floors.map(({ num, windows }, fi) => (
           <div key={num}>
             {fi > 0 && (
-              <div className="mx-1 sm:mx-2" style={{ height: 2, backgroundColor: "#333338", borderRadius: 1 }} />
+              <div className="mx-1 sm:mx-2" style={{ height: 2, backgroundColor: "#E0D6C8", borderRadius: 1 }} />
             )}
             <div className="relative">
               {showFloorLabels && (
@@ -129,6 +109,8 @@ function Building({
                   <BuildingWindow key={proj?.id ?? `e-${index}-${num}-${wi}`} project={proj} />
                 ))}
               </div>
+              {/* Balcony ledge */}
+              <div className="mx-1" style={{ height: 3, backgroundColor: "#E0D6C8", borderRadius: "0 0 2px 2px", boxShadow: "0 1px 2px rgba(0,0,0,0.06)" }} />
             </div>
           </div>
         ))}
@@ -136,32 +118,32 @@ function Building({
 
       {/* Entrance */}
       <div style={{
-        backgroundColor: "#27272A",
-        borderLeft: "2.5px solid #3F3F46",
-        borderRight: "2.5px solid #3F3F46",
+        backgroundColor: "#F5F0E8",
+        borderLeft: "3px solid #E8DFD2",
+        borderRight: "3px solid #E8DFD2",
         borderBottom: "none",
       }}>
-        <div className="h-px" style={{ backgroundColor: "#3F3F46" }} />
+        <div className="h-px" style={{ backgroundColor: "#E0D6C8" }} />
         <div className="flex items-end h-12 sm:h-16">
-          <div className="flex-1 h-full" style={{ backgroundColor: "#27272A" }} />
+          <div className="flex-1 h-full" style={{ backgroundColor: "#F5F0E8" }} />
           <div className="w-14 sm:w-18 h-full flex flex-col">
-            <div className="h-2 mx-[-6px] rounded-t-sm relative" style={{ backgroundColor: "#3F3F46" }}>
-              <div className="absolute inset-x-0 bottom-0 h-px" style={{ backgroundColor: "#52525B" }} />
+            <div className="h-2.5 mx-[-6px] rounded-t-[3px] relative" style={{ backgroundColor: "#C4875A" }}>
+              <div className="absolute inset-x-0 bottom-0 h-px" style={{ backgroundColor: "#B87D50" }} />
             </div>
-            <div className="flex-1 flex gap-[1px]" style={{ backgroundColor: "#52525B" }}>
+            <div className="flex-1 flex gap-[1px]" style={{ backgroundColor: "#D4C4B0" }}>
               {[0, 1].map((d) => (
                 <div key={d} className="flex-1 relative" style={{
-                  backgroundColor: "#09090B",
-                  backgroundImage: "linear-gradient(180deg, rgba(255,200,120,0.02) 0%, rgba(255,200,120,0.08) 100%)",
+                  backgroundColor: "#5C4A3A",
+                  backgroundImage: "linear-gradient(180deg, rgba(255,200,120,0.03) 0%, rgba(255,200,120,0.1) 100%)",
                 }}>
                   <div className={`absolute top-1/2 -translate-y-1/2 ${d === 0 ? "right-1" : "left-1"}`}>
-                    <div className="w-[2px] h-2.5 sm:h-3.5 rounded-full" style={{ backgroundColor: "#9A8B7E", boxShadow: "0 0 4px rgba(196,149,106,0.35)" }} />
+                    <div className="w-[2px] h-2.5 sm:h-3.5 rounded-full" style={{ backgroundColor: "#C4A872", boxShadow: "0 0 4px rgba(196,168,114,0.4)" }} />
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="flex-1 h-full" style={{ backgroundColor: "#27272A" }} />
+          <div className="flex-1 h-full" style={{ backgroundColor: "#F5F0E8" }} />
         </div>
       </div>
     </motion.div>
@@ -212,11 +194,11 @@ function BackgroundSkyline() {
     >
       {FAR_BUILDINGS.map(([x, y, w, h, o], i) => (
         <rect key={`f${i}`} x={x} y={y} width={w} height={h}
-          fill={`rgba(200,210,230,${o})`} />
+          fill={`rgba(190,180,168,${o})`} />
       ))}
       {NEAR_BUILDINGS.map(([x, y, w, h, o], i) => (
         <rect key={`n${i}`} x={x} y={y} width={w} height={h}
-          fill={`rgba(180,195,220,${o})`} />
+          fill={`rgba(175,168,155,${o})`} />
       ))}
       {SKYLINE_LIGHTS.map(([x, y], i) => (
         <rect key={`l${i}`} x={x} y={y} width="2.5" height="2" rx="0.5"
@@ -280,53 +262,19 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
   }, [goTo, page]);
 
   return (
-    <section id="showcase" className="relative overflow-hidden" style={{ backgroundColor: "#0F172A" }}>
-      {/* ── Top fade: light → dark ── */}
+    <section id="showcase" className="relative overflow-hidden" style={{ backgroundColor: "#FAFAFA" }}>
+      {/* ── Top fade ── */}
       <div className="relative" style={{
         height: 120,
-        background: "linear-gradient(180deg, #F4F4F6 0%, #DDDDE5 12%, #AAAAB8 28%, #6A6A82 45%, #35354F 65%, #1A1C34 82%, #0F172A 100%)",
+        background: "linear-gradient(180deg, #F5F3F0 0%, #FAFAFA 100%)",
       }} />
 
       {/* Main content area with padding */}
       <div className="relative py-24 sm:py-36">
-        {/* ── Layer 0: Night sky gradient ── */}
+        {/* ── Layer 0: Light sky gradient ── */}
       <div className="absolute inset-0 pointer-events-none" style={{
-        background: "linear-gradient(180deg, #0B1120 0%, #151535 35%, #1A1830 55%, #141418 100%)",
+        background: "linear-gradient(180deg, #F0EBE4 0%, #F3EEE8 35%, #F6F2ED 55%, #FAFAFA 100%)",
       }} />
-
-      {/* ── Layer 1: Stars ── */}
-      <div className="absolute inset-0 pointer-events-none">
-        {STARS.map((star, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              top: star.top,
-              left: star.left,
-              width: star.size,
-              height: star.size,
-              backgroundColor: `rgba(255, 255, 255, ${star.opacity})`,
-              boxShadow: star.size >= 2.5
-                ? `0 0 ${star.size * 2}px rgba(255, 255, 255, ${star.opacity * 0.4})`
-                : undefined,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* ── Layer 2: Crescent moon ── */}
-      <div className="absolute pointer-events-none" style={{ top: "5%", right: "14%" }}>
-        <div className="relative" style={{
-          width: 22, height: 22, borderRadius: "50%",
-          backgroundColor: "rgba(255, 255, 255, 0.12)",
-          boxShadow: "0 0 20px rgba(255,255,255,0.06), 0 0 50px rgba(255,255,255,0.02)",
-        }}>
-          <div className="absolute" style={{
-            top: -3, left: 6, width: 20, height: 20, borderRadius: "50%",
-            backgroundColor: "#0E1428",
-          }} />
-        </div>
-      </div>
 
       {/* ── Layer 3: Background city skyline — behind buildings ── */}
       <div className="absolute inset-x-0 pointer-events-none" style={{ bottom: "22%", height: "45%" }}>
@@ -345,18 +293,18 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
           className="text-center mb-16 sm:mb-24"
         >
           <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="h-px w-10" style={{ backgroundColor: "rgba(255,255,255,0.15)" }} />
-            <span className="text-[10px] tracking-[0.4em] uppercase" style={{ color: "#A1A1AA" }}>
+            <div className="h-px w-10" style={{ backgroundColor: "#D8D4CE" }} />
+            <span className="text-[10px] tracking-[0.4em] uppercase" style={{ color: "#71717A" }}>
               Our Complex
             </span>
-            <div className="h-px w-10" style={{ backgroundColor: "rgba(255,255,255,0.15)" }} />
+            <div className="h-px w-10" style={{ backgroundColor: "#D8D4CE" }} />
           </div>
           <h2 className="text-[clamp(2.2rem,5vw,4rem)] leading-[1.08] tracking-[-0.02em] font-bold mb-5">
-            <span style={{ color: "#F4F4F5" }}>불 켜진 </span>
-            <span style={{ color: "#A78BFA" }}>창문</span>
-            <span style={{ color: "#F4F4F5" }}>들</span>
+            <span style={{ color: "#18181B" }}>불 켜진 </span>
+            <span style={{ color: "#D4925E" }}>창문</span>
+            <span style={{ color: "#18181B" }}>들</span>
           </h2>
-          <p className="text-[14px] leading-[1.85]" style={{ color: "#A1A1AA" }}>
+          <p className="text-[14px] leading-[1.85]" style={{ color: "#71717A" }}>
             불 켜진 창문에 마우스를 올려보세요.
           </p>
         </motion.div>
@@ -368,10 +316,10 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
             <button
               onClick={() => goTo(page - 1)}
               className="absolute left-2 sm:-left-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-opacity hover:opacity-100 opacity-70"
-              style={{ backgroundColor: "rgba(124,90,201,0.25)", backdropFilter: "blur(4px)" }}
+              style={{ backgroundColor: "rgba(196,113,59,0.12)", backdropFilter: "blur(4px)" }}
             >
               <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none">
-                <path d="M12 4L6 10L12 16" stroke="#F4F4F5" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M12 4L6 10L12 16" stroke="#18181B" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
           )}
@@ -379,10 +327,10 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
             <button
               onClick={() => goTo(page + 1)}
               className="absolute right-2 sm:-right-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-opacity hover:opacity-100 opacity-70"
-              style={{ backgroundColor: "rgba(124,90,201,0.25)", backdropFilter: "blur(4px)" }}
+              style={{ backgroundColor: "rgba(196,113,59,0.12)", backdropFilter: "blur(4px)" }}
             >
               <svg className="w-5 h-5" viewBox="0 0 20 20" fill="none">
-                <path d="M8 4L14 10L8 16" stroke="#F4F4F5" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M8 4L14 10L8 16" stroke="#18181B" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
           )}
@@ -433,7 +381,7 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
                   onClick={() => goTo(i)}
                   className="w-2 h-2 rounded-full transition-colors"
                   style={{
-                    backgroundColor: i === page ? "#7C5AC9" : "rgba(255,255,255,0.2)",
+                    backgroundColor: i === page ? "#C4713B" : "#D8D4CE",
                   }}
                 />
               ))}
@@ -447,7 +395,7 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           className="grid grid-cols-3 gap-8 mt-4 pt-4"
-          style={{ borderTop: "1px solid rgba(124,90,201,0.15)" }}
+          style={{ borderTop: "1px solid rgba(196,113,59,0.15)" }}
         >
           {[
             { value: "80+", label: "빌더" },
@@ -455,7 +403,7 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
             { value: `${globalMaxFloors}F`, label: "현재 층수" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <span className="text-3xl sm:text-5xl block mb-2" style={{ fontFamily: "var(--font-serif-en)", color: "#F4F4F5" }}>{stat.value}</span>
+              <span className="text-3xl sm:text-5xl block mb-2" style={{ fontFamily: "var(--font-serif-en)", color: "#18181B" }}>{stat.value}</span>
               <span className="text-[10px] sm:text-[11px] tracking-[0.2em] uppercase" style={{ color: "#71717A" }}>{stat.label}</span>
             </div>
           ))}
@@ -464,10 +412,10 @@ export function ShowcaseClient({ projects }: ShowcaseClientProps) {
 
       </div>
 
-      {/* ── Bottom fade: dark → light ── */}
+      {/* ── Bottom fade ── */}
       <div className="relative" style={{
         height: 120,
-        background: "linear-gradient(180deg, #0F172A 0%, #1A1C34 18%, #35354F 35%, #6A6A82 55%, #AAAAB8 72%, #DDDDE5 88%, #FAFAFA 100%)",
+        background: "linear-gradient(180deg, #FAFAFA 0%, #F5F3F0 100%)",
       }} />
     </section>
   );

@@ -45,7 +45,7 @@ export function Marquee() {
       />
 
       {/* Subtle top accent line */}
-      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(124,90,201,0.1) 50%, transparent)" }} />
+      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(196,113,59,0.1) 50%, transparent)" }} />
     </div>
   );
 }
